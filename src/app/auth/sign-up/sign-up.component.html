@@ -1,0 +1,44 @@
+<main>
+  <h1>{{'COMMON.SIGN_UP' | translate}}</h1>
+  <form>
+    <mat-form-field>
+      <mat-label>{{'COMMON.EMAIL' | translate}}</mat-label>
+      <input type="email" matInput [formControl]="emailFormControl"  [placeholder]="'INPUT.ENTER_EMAIL' | translate">
+      @if (emailFormControl.hasError('required')) {
+        <mat-error>{{'VALIDATOR.REQUIRED' | translate}}</mat-error>
+      } @else if (  emailFormControl.hasError('email')) {
+        <mat-error>{{'VALIDATOR.ENTER_VALID_EMAIL' | translate}}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{'COMMON.LOGIN' | translate}}</mat-label>
+      <input type="text" matInput [formControl]="loginFormControl"  [placeholder]="'INPUT.ENTER_LOGIN' | translate">
+      @if (loginFormControl.hasError('required')) {
+        <mat-error>{{'VALIDATOR.REQUIRED' | translate}}</mat-error>
+      }  @else if (loginFormControl.hasError('minlength')) {
+        <mat-error>{{'VALIDATOR.MUST_BE_8_CHAR_MORE' | translate}}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{'SELECT.NATIVE_LANGUAGE' | translate}}</mat-label>
+      <mat-select [formControl]="nativeLanguageFormControl">
+        @for (i of Languages; track i) {
+          <mat-option [value]="i">{{i}}</mat-option>
+        }
+      </mat-select>
+      @if (nativeLanguageFormControl.hasError('required')) {
+        <mat-error>{{'VALIDATOR.REQUIRED' | translate}}</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{'COMMON.PASSWORD' | translate}}</mat-label>
+      <input type="password" matInput [formControl]="passwordFormControl"  [placeholder]="'INPUT.ENTER_PASSWORD' | translate">
+      @if (passwordFormControl.hasError('required')) {
+        <mat-error>{{'VALIDATOR.REQUIRED' | translate}}</mat-error>
+      }  @else if (passwordFormControl.hasError('minlength')) {
+        <mat-error>{{'VALIDATOR.MUST_BE_8_CHAR_MORE' | translate}}</mat-error>
+      }
+    </mat-form-field>
+    <button [disabled]="passwordFormControl.status == 'INVALID' || loginFormControl.status == 'INVALID' || emailFormControl.status == 'INVALID'" mat-flat-button color="$main-color" (click)="signUp()">{{'COMMON.SIGN_UP' | translate}}</button>
+  </form>
+</main>

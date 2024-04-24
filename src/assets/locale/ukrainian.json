@@ -1,0 +1,96 @@
+{
+  "INSERTING_MISS_WORDS": "Вставка пропущених слів",
+  "INSERTING_WORD_TRANSLATION": "Вставка перекладу",
+  "WRITING_WORD_TRANSLATION": "Написання перекладу",
+  "WRITING_MISS_WORDS" : "Написання пропущених слів",
+  "COMMON": {
+    "PAGE_NOT_FOUND": "Сторінка не знайдена",
+    "LOG_IN": "Авторизація",
+    "SIGN_UP": "Регістрація",
+    "PROFILE": "Профіль",
+    "SIGN_OUT": "Вийти з акаунту",
+    "LOGIN": "Логін",
+    "PASSWORD": "Пароль",
+    "EMAIL": "Електронна пошта",
+    "TEXT": "Текст",
+    "WORD": "Слово",
+    "TRANSLATION": "Переклад",
+    "LANGUAGE_INTERFACE": "Мова інтерфейсу",
+    "UA": "Українська",
+    "EN" : "Англійська",
+    "YES": "Так",
+    "NO": "Ні",
+    "CONFIRM": "Підтвердіть ваші дії"
+  },
+  "TITLE": {
+    "GENERATE_TEXT": "Генерація тексту штучним інтелектом"
+  },
+  "INPUT": {
+    "ENTER_EMAIL": "Введіть електронну пошту",
+    "ENTER_PASSWORD": "Введіть пароль",
+    "ENTER_LOGIN": "Введіть логін",
+    "ENTER_TRANSLATION": "Введіть переклад",
+    "ENTER_WORD": "Введіть слово",
+    "ENTER_TOPIC": "Введіть тему",
+    "ENTER_NAME": "Введіть назву"
+  },
+  "SELECT": {
+    "NATIVE_LANGUAGE": "Оберіть вашу рідну мову",
+    "WORD_LANGUAGE": "Оберіть мову слова",
+    "LANGUAGE": "Оберіть мову",
+    "WORDS": "Оберіть слова",
+    "FORMAT": "Оберіть формат",
+    "LEVEL": "Оберіть рівень",
+    "UA_AS_LAN_INTERFACE": "Обрати українську як мову інтерфейсу",
+    "EN_AS_LAN_INTERFACE": "Обрати англійську як мову інтерфейсу"
+  },
+  "VALIDATOR": {
+    "MUST_BE_8_CHAR_MORE": "В даному полі має бути 8 та більше символів",
+    "REQUIRED": "Дане поле обов'язкове!",
+    "ENTER_VALID_EMAIL": "Введіть електронну пошту!"
+  },
+  "AUTH":{
+    "FORGOT_PASSWORD": "Забув(ла) пароль"
+  },
+  "ARCHIVE": {
+    "ARCHIVE_PRACTICE": "Архівна практика",
+    "ESSAY": "Твоє єссе",
+    "AI_CORRECTION": "Корекція штучним інтелектом"
+  },
+  "PRACTICE": {
+    "WRITE_YOUR_ESSAY_AND_RECEIVE_AI_ADVICES": "Напиши власне ессе та отримай корекцію від штучного інтелекту",
+    "USER_ANSWER": "Твоя відповідь",
+    "RIGHT_ANSWER": "Правильна відповідь"
+  },
+  "BUTTON": {
+    "DELETE_TEXT": "Видалити текст",
+    "START_PRACTICE": "Почати практику",
+    "CHECK_ANSWERS": "Подивитися правильні відповіді",
+    "SEND_ESSAY": "Відправити єссе",
+    "FINISH_PRACTICE": "Закінчити практику",
+    "TO_PRACTICE": "Перейти до практики",
+    "DELETE_WORD": "Видалити слово"
+  },
+  "INFORM": {
+    "SIGNED_UP": "Регістрація пройшла успішно!",
+    "FINISH_PRACTICE": "Практика успішно завершена!",
+    "ESSAY_CHECKED": "Практика завершена, твоє єссе було перевірено!",
+    "WORD_DELETED": "Слово було успішно видалено!",
+    "TEXT_DELETED": "Текст був успішно видалений!",
+    "WORD_CHANGED": "Слово було успішно відредаговано!",
+    "WORD_ADDED": "Слово було успішно добавлено!",
+    "TEXT_GENERATED": "Текст був успішно згенерований",
+    "PRACTICE_STARTED": "Практика була почата!",
+    "LOGGED_IN": "Авторизація пройшла успішно!"
+  },
+  "PROFILE": {
+    "WORDS": "Слова",
+    "TEXTS": "Тексти",
+    "CHANGE_PASSWORD": "Змінити пароль",
+    "DELETE_ACCOUNT": "Видалити акаунт"
+  },
+  "CONFIRM": {
+    "SIGN_OUT": "Ви точно хочете вийти?",
+    "FINISH_PRACTICE": "Ви точно хочете завершити практику?"
+  }
+}

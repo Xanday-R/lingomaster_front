@@ -1,0 +1,23 @@
+@import "../../../../core/scss/global";
+
+.content {
+  padding-bottom: 2px;
+  display: flex;
+  user-select: none;
+  &.underlined {
+    border-bottom: 1px solid black;
+  }
+  &.correct {
+    background: $color-right;
+  }
+  &.incorrect {
+    background: $color-wrong;
+  }
+  input {
+    background: none;
+  }
+  p {
+    margin: 0;
+    color: #5a5a5a;
+  }
+}

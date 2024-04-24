@@ -1,0 +1,96 @@
+{
+  "INSERTING_MISS_WORDS": "Inserting miss words",
+  "INSERTING_WORD_TRANSLATION": "Inserting words' translation",
+  "WRITING_WORD_TRANSLATION": "Writing words' translation",
+  "WRITING_MISS_WORDS" : "Writing miss words",
+  "COMMON": {
+    "PAGE_NOT_FOUND": "Page is not found",
+    "LOG_IN": "Log in",
+    "SIGN_UP": "Sign up",
+    "PROFILE": "Profile",
+    "SIGN_OUT": "Sign out",
+    "LOGIN": "Login",
+    "PASSWORD": "Password",
+    "EMAIL": "Email",
+    "TEXT": "Text",
+    "WORD": "Word",
+    "TRANSLATION": "Translation",
+    "LANGUAGE_INTERFACE": "Interface's language",
+    "UA": "Ukrainian",
+    "EN": "English",
+    "YES": "Yes",
+    "NO": "No",
+    "CONFIRM": "Confirm your action"
+  },
+  "TITLE": {
+    "GENERATE_TEXT": "Ai generation text"
+  },
+  "INPUT": {
+    "ENTER_EMAIL": "Enter your email",
+    "ENTER_PASSWORD": "Enter your password",
+    "ENTER_LOGIN": "Enter your login",
+    "ENTER_TRANSLATION": "Enter translation",
+    "ENTER_WORD": "Enter word",
+    "ENTER_TOPIC": "Enter topic",
+    "ENTER_NAME": "Enter name"
+  },
+  "SELECT": {
+    "NATIVE_LANGUAGE": "Select your native language",
+    "WORD_LANGUAGE": "Select word's language",
+    "LANGUAGE": "Select language",
+    "WORDS": "Select words",
+    "FORMAT": "Select format",
+    "LEVEL": "Select level",
+    "UA_AS_LAN_INTERFACE": "Select Ukrainian as language's interface",
+    "EN_AS_LAN_INTERFACE": "Select English as language's interface"
+  },
+  "VALIDATOR": {
+    "MUST_BE_8_CHAR_MORE": "The input must be contain 8 and more characters",
+    "REQUIRED": "The input is required!",
+    "ENTER_VALID_EMAIL": "Enter a valid email!"
+  },
+  "AUTH":{
+    "FORGOT_PASSWORD": "Forgot password"
+  },
+  "ARCHIVE": {
+    "ARCHIVE_PRACTICE": "Archive practice",
+    "ESSAY": "Your essay",
+    "AI_CORRECTION": "AI correction"
+  },
+  "PRACTICE": {
+    "WRITE_YOUR_ESSAY_AND_RECEIVE_AI_ADVICES": "Write an essay and receive an ai correction",
+    "USER_ANSWER": "Your answer: ",
+    "RIGHT_ANSWER": "Right answer: "
+  },
+  "BUTTON": {
+    "DELETE_TEXT": "Delete the text",
+    "START_PRACTICE": "Start practice",
+    "CHECK_ANSWERS": "Check answers",
+    "SEND_ESSAY": "Send the essay",
+    "FINISH_PRACTICE": "Finish the practice",
+    "TO_PRACTICE": "Link to your practice",
+    "DELETE_WORD": "Delete the word"
+  },
+  "INFORM": {
+    "SIGNED_UP": "You have just singed up successfully!",
+    "FINISH_PRACTICE": "You have just finished practice successfully!",
+    "ESSAY_CHECKED": "The practice has just been finished. Your essay has just been checked successfully!",
+    "WORD_DELETED": "Word has just been deleted successfully!",
+    "TEXT_DELETED": "Text has just been deleted successfully!",
+    "WORD_CHANGED": "Word has just been changed successfully!",
+    "WORD_ADDED": "Word has just been added successfully!",
+    "TEXT_GENERATED": "Text has just been generated successfully!",
+    "PRACTICE_STARTED": "Practice has just been started!",
+    "LOGGED_IN": "You have just logged in successfully!"
+  },
+  "PROFILE": {
+    "WORDS": "Words",
+    "TEXTS": "Texts",
+    "CHANGE_PASSWORD": "Change password",
+    "DELETE_ACCOUNT": "Delete account"
+  },
+  "CONFIRM": {
+    "SIGN_OUT": "Are you sure, what you want to sign out?",
+    "FINISH_PRACTICE": "Are you sure, what you want to finish the practice?"
+  }
+}

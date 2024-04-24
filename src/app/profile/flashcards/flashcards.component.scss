@@ -1,0 +1,23 @@
+.content {
+  width: 80vw;
+  height: 70vh;
+  display: flex;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+
+  .card {
+    @media screen and (max-width: 100vh) {
+      width: 60vw;
+      height: 80vw;
+    }
+    user-select: none;
+    width: 40vh;
+    height: 40vh;
+    background: #adadad;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+  }
+}

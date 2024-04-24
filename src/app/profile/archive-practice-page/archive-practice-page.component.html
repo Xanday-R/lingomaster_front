@@ -1,0 +1,21 @@
+<div class="content">
+  <div class="text">
+    <h1>{{'ARCHIVE.ARCHIVE_PRACTICE' | translate}}</h1>
+    <div class="abzac"></div>
+    @for(i of text$ | async; track $index) {
+      @if (i == '\n') {
+        <div class="abzac"></div>
+      } @else if(i.tag != 'inserting' && i.tag != 'writing') {
+        <p>{{i}}</p>
+      } @else {
+        <div [class]="{wrong: !i.isCorrectAnswer, right: i.isCorrectAnswer}">{{i.text}} [{{'PRACTICE.USER_ANSWER' | translate}}: "{{i.userAnswer}}". {{'PRACTICE.RIGHT_ANSWER' | translate}}: "{{i.rightAnswer}}"]</div>
+      }
+    }
+  </div>
+  <div class="essay" *ngIf="!!(essay$ | async)">
+    <h1>{{'ARCHIVE.ESSAY' | translate}}</h1>
+    <div class="abzac"></div>
+    <p class="essay-p">{{essay$ | async}}</p>
+    <p class="ai-p" *ngIf="!!(aiCorrectionEssay$ | async)">{{'ARCHIVE.AI_CORRECTION' | translate}}: {{aiCorrectionEssay$ | async}}</p>
+  </div>
+</div>

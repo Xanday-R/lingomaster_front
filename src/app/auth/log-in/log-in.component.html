@@ -1,0 +1,26 @@
+<div class="content">
+  <h1>{{'COMMON.LOG_IN' | translate}}</h1>
+  <form>
+    <mat-form-field>
+      <mat-label>{{ 'COMMON.EMAIL' | translate}}</mat-label>
+      <input type="email" matInput [formControl]="emailFormControl"  [placeholder]="'INPUT.ENTER_EMAIL' | translate">
+      @if (emailFormControl.hasError('required')) {
+        <mat-error>{{ 'VALIDATOR.REQUIRED' | translate}}</mat-error>
+      } @else if (  emailFormControl.hasError('email')) {
+        <mat-error>{{ 'VALIDATOR.ENTER_VALID_EMAIL' | translate }}</mat-error>
+      }
+
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>{{ 'COMMON.PASSWORD' | translate}}</mat-label>
+      <input type="password" matInput [formControl]="passwordFormControl"  [placeholder]="'INPUT.ENTER_PASSWORD' | translate">
+      @if (passwordFormControl.hasError('required')) {
+        <mat-error>{{ 'VALIDATOR.REQUIRED' | translate}}</mat-error>
+      }  @else if (passwordFormControl.hasError('minlength')) {
+        <mat-error>{{ 'VALIDATOR.MUST_BE_8_CHAR_MORE' | translate }}</mat-error>
+      }
+    </mat-form-field>
+    <button [disabled]="passwordFormControl.status == 'INVALID' || emailFormControl.status == 'INVALID'" mat-flat-button color="$main-color" (click)="logIn()">{{'COMMON.LOG_IN' | translate}}</button>
+  </form>
+<!--  <app-a [href]="['/auth/recovery']" [color]="'black'">{{ 'AUTH.FORGOT_PASSWORD' |translate}}</app-a>-->
+</div>

@@ -1,0 +1,11 @@
+<div class="content" [class]="{correct: disabled && isCorrectAnswer, incorrect: disabled && !isCorrectAnswer, underlined: !disabled}">
+  <ng-content></ng-content>
+  <select [disabled]="disabled" [(ngModel)]="userAnswer" (ngModelChange)="select($event)">
+    @for(i of options$ | async; track $index) {
+      <option [value]="i" [selected]="userAnswer == i">{{i}}</option>
+    }
+    <option [value]="''" [selected]="userAnswer == ''">...</option>
+  </select>
+  <p *ngIf="disabled">[{{'PRACTICE.RIGHT_ANSWER' | translate}}: {{rightAnswer}}]</p>
+  <input type="checkbox" *ngIf="disabled" [(ngModel)]="isCorrectAnswer"  (ngModelChange)="markAnswerLikeAnother($event)">
+</div>

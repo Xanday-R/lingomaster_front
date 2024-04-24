@@ -1,0 +1,39 @@
+@import "../../core/scss/global";
+
+.content {
+  margin-top: 5vw;
+  h1, p {
+    margin: 0;
+    padding: 0;
+  }
+  .abzac {
+    width: 100%;
+    height: 16px;
+  }
+  .text {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    p {
+      margin-right: 4px;
+    }
+    .wrong {
+      color: #ff6a6a;
+    }
+    .right {
+      color: #00bf4e;
+    }
+  }
+
+  .essay {
+    margin-top: 2.5vw;
+    .ai-p {
+      margin-top: 8px;
+      font-style: italic;
+      color: grey;
+    }
+  }
+
+}
+
+

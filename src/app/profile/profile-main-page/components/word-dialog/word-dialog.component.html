@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>{{'COMMON.WORD' | translate}}</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>{{'COMMON.WORD' | translate}}</mat-label>
+    <input type="text" matInput [placeholder]="'INPUT.ENTER_WORD' | translate" [formControl]="wordFormControl">
+    @if (wordFormControl.hasError('required')) {
+      <mat-error>Word is <strong>required</strong></mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{'COMMON.TRANSLATION' | translate}}</mat-label>
+    <input type="text" matInput [placeholder]="'INPUT.ENTER_TRANSLATION' | translate" [formControl]="translationFormControl">
+    @if (translationFormControl.hasError('required')) {
+      <mat-error>Translation is <strong>required</strong></mat-error>
+    }
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [disabled]="wordFormControl.status == 'INVALID' || translationFormControl.status == 'INVALID'" [mat-dialog-close]="{word: wordFormControl.value, translation: translationFormControl.value}" cdkFocusInitial>Ok</button>
+  <button mat-button color="warn" [mat-dialog-close]="{delete: true}">
+    {{'BUTTON.DELETE_WORD' | translate}}
+  </button>
+</mat-dialog-actions>

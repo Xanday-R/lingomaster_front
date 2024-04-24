@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>{{'COMMON.WORD' | translate}}</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>{{'INPUT.ENTER_WORD' | translate}}</mat-label>
+    <input type="text" matInput [placeholder]="'INPUT.ENTER_WORD' | translate" [formControl]="wordFormControl">
+    @if (wordFormControl.hasError('required')) {
+      <mat-error>{{'VALIDATOR.REQUIRED' | translate}}</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{'SELECT.WORD_LANGUAGE' | translate}}</mat-label>
+    <mat-select [formControl]="languageFormControl">
+      @for (i of languagesWithoutUserNativeLanguage$ | async; track i) {
+        <mat-option [value]="i">{{i}}</mat-option>
+      }
+    </mat-select>
+    @if (languageFormControl.hasError('required')) {
+      <mat-error>{{'VALIDATOR.REQUIRED' | translate}}</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{'INPUT.ENTER_TRANSLATION' | translate}}</mat-label>
+    <input type="text" matInput [placeholder]="'INPUT.ENTER_WORD' | translate" [formControl]="translationFormControl">
+    @if (translationFormControl.hasError('required')) {
+      <mat-error>{{'VALIDATOR.REQUIRED' | translate}}</mat-error>
+    }
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [disabled]="wordFormControl.status == 'INVALID' || languageFormControl.status == 'INVALID'|| translationFormControl.status == 'INVALID'" [mat-dialog-close]="{word: wordFormControl.value, language_word:languageFormControl.value, translation: translationFormControl.value}" cdkFocusInitial>OK</button>
+</mat-dialog-actions>

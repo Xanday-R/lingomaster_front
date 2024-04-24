@@ -1,0 +1,23 @@
+svg-icon {
+  display: flex;
+}
+
+button {
+  width: 100px;
+  height: 100px;
+}
+
+.words_texts {
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+
+  @media screen and (max-width: 640px) {
+    justify-content: space-between;
+  }
+  & > button {
+    margin: 4px;
+  }
+}

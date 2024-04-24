@@ -1,0 +1,11 @@
+@import "@scss/global.scss";
+
+button {
+  background: none;
+  border: none;
+  color: $a-color;
+  text-decoration: none;
+  padding: 4px;
+  font-size: $nav-button-size;
+  cursor: pointer;
+}

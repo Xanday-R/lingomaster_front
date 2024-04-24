@@ -1,0 +1,15 @@
+<nav>
+  <div class="logotype">
+    <app-button-a [routerLink]="['/']"><img ngSrc="../../../../assets/img/icon.png" [width]="40" [height]="40" alt=""></app-button-a>
+  </div>
+  <div class="account-part">
+    @if ((isAuth$ | async)?.statusCode == 200 ) {
+      <app-button-a  [routerLink]="['/profile']">{{'COMMON.PROFILE' | translate}}</app-button-a>
+      <app-button-a (click)="signOut()">{{'COMMON.SIGN_OUT' | translate}}</app-button-a>
+    } @else {
+      <app-button-a  [routerLink]="['/auth/log-in']">{{ 'COMMON.LOG_IN' | translate }}</app-button-a>
+      <app-button-a  [routerLink]="['/auth/sign-up']">{{ 'COMMON.SIGN_UP' | translate}}</app-button-a>
+    }
+    <app-button-a (click)="changeLanguageInterface()">{{'COMMON.LANGUAGE_INTERFACE' | translate}}</app-button-a>
+  </div>
+</nav>

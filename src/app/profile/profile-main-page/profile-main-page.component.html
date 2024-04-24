@@ -1,0 +1,36 @@
+<div class="display">
+  <mat-tab-group dynamicHeight>
+    <mat-tab [label]="'PROFILE.WORDS' | translate">
+      <div class="words_texts">
+        <button mat-fab color="primary" (click)="createWordDialog()">
+          <svg-icon src="../../../assets/svg/add.svg" [stretch]="true"></svg-icon>
+        </button>
+        <button mat-fab color="primary" (click)="startFlashcards()">
+          <svg-icon src="../../../assets/svg/start.svg" [stretch]="true"></svg-icon>
+        </button>
+        @for( i of words | async; track i) {
+          <button mat-flat-button color="primary" (click)="changeWordDialog(i)">{{i.word}}</button>
+        }
+      </div>
+    </mat-tab>
+    <mat-tab [label]="'PROFILE.TEXTS' | translate">
+      <div class="words_texts">
+        <button mat-fab color="primary" (click)="generateTextDialog()">
+          <svg-icon src="../../../assets/svg/add.svg" [stretch]="true"></svg-icon>
+        </button>
+        @if(takingPractice | async) {
+          <button mat-fab color="primary" [routerLink]="['/profile/practice']">
+            {{ 'BUTTON.TO_PRACTICE' | translate}}
+          </button>
+        }
+        @for( i of texts | async; track i) {
+          <button mat-flat-button color="primary" (click)="openTextDialog(i)">{{i.name}}</button>
+        }
+      </div>
+    </mat-tab>
+<!--    <mat-tab [label]="'PROFILE.CHANGE_PASSWORD' | translate"> CHANGE_PASSWORD</mat-tab>-->
+<!--    <mat-tab [label]="'PROFILE.DELETE_ACCOUNT' | translate"> DELETE_ACCOUNT</mat-tab>-->
+  </mat-tab-group>
+
+</div>
+

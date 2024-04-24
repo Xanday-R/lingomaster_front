@@ -1,0 +1,6 @@
+<div class="content" [class]="{correct: disabled && isCorrectAnswer, incorrect: disabled && !isCorrectAnswer, underlined: !disabled}">
+  <ng-content></ng-content>
+  <input [disabled]="disabled" [(ngModel)]="userAnswer" (ngModelChange)="select($event)">
+  <p *ngIf="disabled">[{{'PRACTICE.RIGHT_ANSWER' | translate}}: {{rightAnswer}}]</p>
+  <input type="checkbox"  *ngIf="disabled" [(ngModel)]="isCorrectAnswer"  (ngModelChange)="markAnswerLikeAnother($event)">
+</div>

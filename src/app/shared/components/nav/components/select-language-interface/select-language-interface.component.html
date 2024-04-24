@@ -1,0 +1,10 @@
+<mat-nav-list>
+  <app-button-a *ngIf="localStorageService.getLanguageInterface() != Languages.ukrainian" (click)="select(Languages.ukrainian)">
+    <span matListItemTitle>{{ 'COMMON.UA' | translate }}</span>
+    <span matLine>{{ 'SELECT.UA_AS_LAN_INTERFACE' | translate}}</span>
+  </app-button-a>
+  <app-button-a *ngIf="localStorageService.getLanguageInterface() != Languages.english" (click)="select(Languages.english)">
+    <span matListItemTitle>{{'COMMON.EN' | translate}}</span>
+    <span matLine>{{ 'SELECT.EN_AS_LAN_INTERFACE' | translate}}</span>
+  </app-button-a>
+</mat-nav-list>

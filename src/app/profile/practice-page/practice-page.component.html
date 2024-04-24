@@ -1,0 +1,31 @@
+<div class="content">
+  <h1>{{model$ | async}}</h1>
+  <div class="abzac"></div>
+  <div class="text" appTranslationText>
+    @for (i of innerHtml | async; track $index) {
+      @if (i == '\n') {
+        <div class="abzac"></div>
+      }
+      @else if(i.tag == 'inserting') {
+        <app-place-answer-inserting [disabled]="isCheckedAnswers | async" [rightAnswer]="i.rightAnswer" [indexAnswer]="i.id_input" [userAnswer]="i.userAnswer" [isCorrectAnswer]="i.isCorrectAnswer">{{i.text}}</app-place-answer-inserting>
+      }@else if(i.tag == 'writing') {
+        <app-place-answer-writing [disabled]="isCheckedAnswers | async"  [rightAnswer]="i.rightAnswer" [indexAnswer]="i.id_input" [userAnswer]="i.userAnswer" [isCorrectAnswer]="i.isCorrectAnswer">{{i.text}}</app-place-answer-writing>
+      }@else{
+        <p>{{i}}</p>
+      }
+    }
+  </div>
+
+  <div *ngIf="isCheckedAnswers | async" class="content-writing-essay">
+    <mat-form-field class="essay-form">
+      <mat-label>{{ 'PRACTICE.WRITE_YOUR_ESSAY_AND_RECEIVE_AI_ADVICES' | translate}}</mat-label>
+      <textarea matInput placeholder="essay..." [formControl]="essayFormControl"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="button-position">
+    <button *ngIf="!(isCheckedAnswers | async)"  (click)="checkAnswers()"  mat-flat-button>{{ 'BUTTON.CHECK_ANSWERS' | translate}}</button>
+    <button *ngIf="isCheckedAnswers | async" (click)="sendEssayOnCorrection()" mat-flat-button>{{ 'BUTTON.SEND_ESSAY' | translate}}</button>
+    <button mat-flat-button (click)="finishPractice()">{{ 'BUTTON.FINISH_PRACTICE' | translate}}</button>
+  </div>
+</div>

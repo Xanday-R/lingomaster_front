@@ -1,0 +1,12 @@
+<div class="content" *ngIf="(words$ | async) as words" appFlashcards [length]="words.length" (showTranslation)="hideTranslation = $event" (currentIndex)="currentIndex = $event">
+  @for (i of words; track i) {
+    <div class="card" *ngIf="$index == currentIndex"  >
+      <div class="word" *ngIf="!hideTranslation">
+        {{i.word}}
+      </div>
+      <div class="translation" *ngIf="hideTranslation">
+        {{i.translation}}
+      </div>
+    </div>
+  }
+</div>

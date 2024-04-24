@@ -1,0 +1,73 @@
+<h2 mat-dialog-title>{{'TITLE.GENERATE_TEXT' | translate}}</h2>
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>{{'INPUT.ENTER_NAME' | translate}}</mat-label>
+    <input type="text" matInput [formControl]="nameFormControl">
+    @if (nameFormControl.hasError('required')) {
+      <mat-error>{{'VALIDATOR.REQUIRED' | translate}}</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{'SELECT.LANGUAGE' | translate}}</mat-label>
+    <mat-select [formControl]="languageFormControl">
+      @for (i of languagesWithoutUserNativeLanguage$ | async; track i) {
+        <mat-option [value]="i">{{i}}</mat-option>
+      }
+    </mat-select>
+    @if (languageFormControl.hasError('required')) {
+      <mat-error>{{'VALIDATOR.REQUIRED' | translate}}</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{ 'SELECT.LEVEL' | translate}}</mat-label>
+    <mat-select [formControl]="levelFormControl">
+      @for (i of LevelsList; track i) {
+        <mat-option [value]="i">{{i}}</mat-option>
+      }
+    </mat-select>
+    @if (levelFormControl.hasError('required')) {
+      <mat-error>{{'VALIDATOR.REQUIRED' | translate}}</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{ 'SELECT.FORMAT' | translate}}</mat-label>
+    <mat-select [formControl]="formatFormControl">
+      @for (i of FormatsList; track i) {
+        <mat-option [value]="i">{{i}}</mat-option>
+      }
+    </mat-select>
+    @if (formatFormControl.hasError('required')) {
+      <mat-error>{{'VALIDATOR.REQUIRED' | translate}}</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{'INPUT.ENTER_TOPIC' | translate}}</mat-label>
+    <input type="text" matInput [formControl]="topicFormControl">
+    @if (topicFormControl.hasError('required')) {
+      <mat-error>{{'VALIDATOR.REQUIRED' | translate}}</mat-error>
+    }
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>{{'SELECT.WORDS' | translate}}</mat-label>
+    <mat-chip-grid #chipGrid>
+      @for (i of selectedWords; track i) {
+        <mat-chip-row (removed)="remove(i)">
+          {{i}}
+          <button matChipRemove [attr.aria-label]="'remove ' + i">
+            <mat-icon>cancel</mat-icon>
+          </button>
+        </mat-chip-row>
+      }
+    </mat-chip-grid>
+    <input placeholder="words..." #wordInput [formControl]="wordsFormControl"
+           [matChipInputFor]="chipGrid" [matAutocomplete]="auto" (focus)="showOptions()"/>
+    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="select($event)">
+      @for (i of filteredOptions$ | async; track i) {
+        <mat-option [value]="i.word">{{i.word}}</mat-option>
+      }
+    </mat-autocomplete>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button [disabled]="!selectedWords.length || nameFormControl.status == 'INVALID' || languageFormControl.status == 'INVALID' || formatFormControl.status == 'INVALID' || levelFormControl.status == 'INVALID' || topicFormControl.status == 'INVALID'" [mat-dialog-close]="{topic: topicFormControl.value, level: levelFormControl.value, language: languageFormControl.value, name: nameFormControl.value, words: selectedWords, format: formatFormControl.value}" cdkFocusInitial>OK</button>
+</mat-dialog-actions>

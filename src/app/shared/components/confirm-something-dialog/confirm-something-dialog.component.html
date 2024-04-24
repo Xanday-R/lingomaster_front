@@ -1,0 +1,6 @@
+<h2 mat-dialog-title>{{'COMMON.CONFIRM' | translate}}</h2>
+<mat-dialog-content>
+  <h3>{{question | translate}}</h3>
+  <button mat-button mat-dialog-close [mat-dialog-close]="{confirm: true}">{{'COMMON.YES' | translate}}</button>
+  <button mat-button color="warn" mat-dialog-close  [mat-dialog-close]="{confirm: false}">{{'COMMON.NO' | translate}}</button>
+</mat-dialog-content>
