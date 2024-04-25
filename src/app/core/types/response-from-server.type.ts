@@ -5,6 +5,7 @@ export interface ResponseFromServer {
   statusCode: number,
   error: string,
   message: string | string[],
+  token?: string,
   info?: {login: string, img: string, email: string, native_language: Languages},
   data?:IWord[] | IText[],
   generatedText?: string,

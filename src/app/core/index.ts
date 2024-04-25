@@ -1,5 +1,5 @@
 export * from './types/response-from-server.type'
-export * from './services/global.service'
+export * from './services/auth.service'
 export * from './providers/headers.provider'
 export * from './utils/lists'
 export * from './utils/upper-first-char'

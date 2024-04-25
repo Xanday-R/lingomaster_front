@@ -11,10 +11,11 @@ import {
 } from "@angular/material/dialog";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
-import {GlobalService, LanguagesList} from "../../../../core";
+import {AuthService, LanguagesList} from "../../../../core";
 import {filter, from, mergeMap, toArray} from "rxjs";
 import {AsyncPipe} from "@angular/common";
 import {TranslateModule} from "@ngx-translate/core";
+import {AccountInfoService} from "@core/services/account-info.service";
 
 @Component({
   selector: 'app-create-word-dialog',
@@ -39,9 +40,9 @@ import {TranslateModule} from "@ngx-translate/core";
 })
 export class CreateWordDialogComponent {
 
-  constructor(private globalService: GlobalService) {
+  constructor(private globalService: AuthService, private accountInfoService: AccountInfoService) {
   }
-  protected languagesWithoutUserNativeLanguage$ = this.globalService.nativeLanguage$.pipe(mergeMap(e => from(LanguagesList).pipe(filter(value => value != e), toArray())));
+  protected languagesWithoutUserNativeLanguage$ = this.accountInfoService.nativeLanguage$.pipe(mergeMap(e => from(LanguagesList).pipe(filter(value => value != e), toArray())));
   public Languages:string[] = LanguagesList;
   wordFormControl = new FormControl('', [Validators.required]);
   languageFormControl = new FormControl('', [Validators.required]);

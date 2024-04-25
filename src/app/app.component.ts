@@ -4,7 +4,7 @@ import {NavComponent} from "./shared/components";
 import {CommonModule} from "@angular/common";
 import {TranslateService} from "@ngx-translate/core";
 import {environment} from "../environments/environment";
-import {LocalStorageService} from "./core/services/local-storage.service";
+import {LanguageSelectionService} from "@core/services/language-selection.service";
 
 @Component({
   selector: 'app-root',
@@ -17,8 +17,8 @@ import {LocalStorageService} from "./core/services/local-storage.service";
 })
 export class AppComponent {
   title = 'LingoMaster';
-  constructor(private localStorageService: LocalStorageService) {
+  constructor(private languageSelectionService: LanguageSelectionService) {
 
-    localStorageService.selectLanguageInterface(this.localStorageService.getLanguageInterface());
+    languageSelectionService.selectLanguageInterface(this.languageSelectionService.getLanguageInterface());
   }
 }

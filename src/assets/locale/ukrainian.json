@@ -92,5 +92,12 @@
   "CONFIRM": {
     "SIGN_OUT": "Ви точно хочете вийти?",
     "FINISH_PRACTICE": "Ви точно хочете завершити практику?"
+  },
+  "FORMATS_TEXTS": {
+    "story": "історія",
+    "article": "стаття",
+    "conversation": "діалог",
+    "news": "новини",
+    "report": "звіт"
   }
 }

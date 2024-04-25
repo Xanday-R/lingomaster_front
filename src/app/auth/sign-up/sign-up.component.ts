@@ -7,8 +7,10 @@ import {HttpClientModule} from "@angular/common/http";
 import {SignUpService} from "./core/services/sign-up.service";
 import {MatOption, MatSelect} from "@angular/material/select";
 import {Router} from "@angular/router";
-import {GlobalService, LanguagesList, upperFirstChar} from '../../core';
+import {AuthService, LanguagesList, upperFirstChar} from '../../core';
 import {TranslateModule} from "@ngx-translate/core";
+import {CookieService} from "@core/services/cookie-service.service";
+import {InformService} from "@core/services/inform-service.service";
 
 @Component({
   selector: 'app-sign-up',
@@ -29,14 +31,18 @@ export class SignUpComponent {
   public Languages:string[] = LanguagesList;
 
   private singUpServiceSubscription = this.signUpService.signUp$.subscribe((result) => {
-    this.globalService.askAuth.next(null)
+    if(result.statusCode == 200) {
+      this.cookieService.setCookie(result.token!);
+      this.globalService.askAuth.next(null)
+    }
+
     setTimeout(() => {
-      this.globalService.askInform(result, 'INFORM.SIGNED_UP', '/profile');
+      this.informService.askInform(result, 'INFORM.SIGNED_UP', '/profile');
     }, 300)
 
   })
 
-  constructor(private signUpService: SignUpService, private globalService: GlobalService, private router: Router) {}
+  constructor(private signUpService: SignUpService, private globalService: AuthService, private router: Router, private cookieService: CookieService, private informService: InformService) {}
 
   async signUp() {
     this.signUpService.askSignUp$.next({email: this.emailFormControl.value!, login: this.loginFormControl.value!, native_language: this.nativeLanguageFormControl.value!, password: this.passwordFormControl.value!});

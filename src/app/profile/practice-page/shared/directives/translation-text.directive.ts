@@ -1,9 +1,10 @@
 import {ComponentFactoryResolver, Directive, HostBinding, HostListener, ViewContainerRef} from '@angular/core';
 import {PracticeRequestingService} from "../../../core/services/practice-requesting.service";
-import {GlobalService} from "@core/services/global.service";
+import {AuthService} from "@core/services/auth.service";
 import {Languages} from "@core/enums/languages.enum";
 import {PracticeProcessingService} from "../../core/services/practice-processing.service";
 import {PrintTranslationComponent} from "../components/print-translation/print-translation.component";
+import {AccountInfoService} from "@core/services/account-info.service";
 
 @Directive({
   selector: '[appTranslationText]',
@@ -18,13 +19,14 @@ export class TranslationTextDirective {
   private y = 0;
   constructor(
     private viewContainerRef: ViewContainerRef,
-    private globalService: GlobalService,
+    private globalService: AuthService,
     private practiceRequesting : PracticeRequestingService,
     private practiceProcessing: PracticeProcessingService,
-    private componentFactoryResolver: ComponentFactoryResolver
+    private componentFactoryResolver: ComponentFactoryResolver,
+    private accountInfoService: AccountInfoService
   ) { }
 
-  private nativeLanguageSubscription = this.globalService.nativeLanguage$.subscribe((result) => {
+  private nativeLanguageSubscription = this.accountInfoService.nativeLanguage$.subscribe((result) => {
     this.nativeLanguage = result as Languages;
   })
   private languageTextSubscription = this.practiceProcessing.languageText$.subscribe((result) => {

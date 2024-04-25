@@ -6,6 +6,7 @@ import {LearningService} from "./core/services/learning.service";
 import {PracticeRequestingService} from "./core/services/practice-requesting.service";
 import {isTakingPracticeGuard} from "./practice-page/shared/guards/is-taking-practice.guard";
 import {isRightOnTheArchivePracticeGuard} from "./archive-practice-page/shared/guards/is-right-on-the-archive-practice.guard";
+import {ArchivePracticeService} from "./archive-practice-page/core/services/archive-practice.service";
 
 
 const routes: Routes = [
@@ -16,7 +17,7 @@ const routes: Routes = [
 ]
 
 @NgModule({
-  providers: [provideRouter(routes), LearningService, PracticeRequestingService,isTakingPracticeGuard, isRightOnTheArchivePracticeGuard],
+  providers: [provideRouter(routes), ArchivePracticeService, LearningService, PracticeRequestingService,isTakingPracticeGuard, isRightOnTheArchivePracticeGuard],
   declarations: [],
   imports: [
     CommonModule,

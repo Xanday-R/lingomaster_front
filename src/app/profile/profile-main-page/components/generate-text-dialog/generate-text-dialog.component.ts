@@ -29,8 +29,9 @@ import {
   zip
 } from "rxjs";
 import {AsyncPipe} from "@angular/common";
-import {FormatsList, GlobalService, IWord, LanguagesList, LevelsList} from "../../../../core";
+import {FormatsList, AuthService, IWord, LanguagesList, LevelsList} from "../../../../core";
 import {TranslateModule} from "@ngx-translate/core";
+import {AccountInfoService} from "@core/services/account-info.service";
 
 @Component({
   selector: 'app-generate-text-dialog',
@@ -57,7 +58,7 @@ import {TranslateModule} from "@ngx-translate/core";
   styleUrl: '../dialog.scss'
 })
 export class GenerateTextDialogComponent {
-  protected languagesWithoutUserNativeLanguage$ = this.globalService.nativeLanguage$.pipe(mergeMap(e => from(LanguagesList).pipe(filter(value => value != e), toArray())));
+  protected languagesWithoutUserNativeLanguage$ = this.accountInfoService.nativeLanguage$.pipe(mergeMap(e => from(LanguagesList).pipe(filter(value => value != e), toArray())));
 
   wordsFormControl = new FormControl('');
   languageFormControl = new FormControl('', [Validators.required]);
@@ -71,7 +72,7 @@ export class GenerateTextDialogComponent {
   ));
   selectedWords:string[] = [];
   @ViewChild('wordInput') wordInput: ElementRef<HTMLInputElement> | undefined;
-  constructor(public dialogRef: MatDialogRef<GenerateTextDialogComponent>, @Inject(MAT_DIALOG_DATA) public words: Observable<IWord[]>, private globalService: GlobalService) {
+  constructor(public dialogRef: MatDialogRef<GenerateTextDialogComponent>, @Inject(MAT_DIALOG_DATA) public words: Observable<IWord[]>, private globalService: AuthService, private accountInfoService: AccountInfoService) {
   }
 
   remove(word: string) {

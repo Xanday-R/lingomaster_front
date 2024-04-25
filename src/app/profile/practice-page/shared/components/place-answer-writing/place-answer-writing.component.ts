@@ -33,9 +33,6 @@ export class PlaceAnswerWritingComponent {
   @Input() rightAnswer = '';
 
   constructor(private practiceRequestingService: PracticeRequestingService, private practiceProcessingService: PracticeProcessingService) {
-    setTimeout(() => {
-      console.log(this.disabled);
-    })
   }
 
   select(answer:string) {

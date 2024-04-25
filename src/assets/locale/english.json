@@ -92,5 +92,12 @@
   "CONFIRM": {
     "SIGN_OUT": "Are you sure, what you want to sign out?",
     "FINISH_PRACTICE": "Are you sure, what you want to finish the practice?"
+  },
+  "FORMATS_TEXTS": {
+    "story": "story",
+    "article": "article",
+    "conversation": "conversation",
+    "news": "news",
+    "report": "report"
   }
 }

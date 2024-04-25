@@ -4,7 +4,7 @@ import {AComponent} from "../../../a/a.component";
 import {MatListItemTitle, MatNavList} from "@angular/material/list";
 import {Languages} from "../../../../../core";
 import {MatLine} from "@angular/material/core";
-import {LocalStorageService} from "../../../../../core/services/local-storage.service";
+import {LanguageSelectionService} from "@core/services/language-selection.service";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {NgIf} from "@angular/common";
 import {ButtonAComponent} from "../../../button-a/button-a.component";
@@ -25,11 +25,11 @@ import {ButtonAComponent} from "../../../button-a/button-a.component";
   styleUrl: './select-language-interface.component.scss'
 })
 export class SelectLanguageInterfaceComponent {
-  constructor(private _bottomSheetRef: MatBottomSheetRef<SelectLanguageInterfaceComponent>, protected localStorageService: LocalStorageService) {
+  constructor(private _bottomSheetRef: MatBottomSheetRef<SelectLanguageInterfaceComponent>, protected languageSelectionService: LanguageSelectionService) {
   }
 
   select(language: Languages) {
-    this.localStorageService.selectLanguageInterface(language);
+    this.languageSelectionService.selectLanguageInterface(language);
     this._bottomSheetRef.dismiss();
   }
 

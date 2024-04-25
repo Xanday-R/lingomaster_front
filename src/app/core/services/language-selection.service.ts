@@ -4,7 +4,7 @@ import {TranslateService} from "@ngx-translate/core";
 import {environment} from "../../../environments/environment";
 
 @Injectable({providedIn: 'root'})
-export class LocalStorageService {
+export class LanguageSelectionService {
   constructor(private translate: TranslateService) {
     this.translate.setDefaultLang(environment.defaultLanguage);
   }
@@ -15,8 +15,7 @@ export class LocalStorageService {
   }
 
   getLanguageInterface() {
-    const result = localStorage.getItem('lang');
-    if(!result || (result != Languages.ukrainian && result != Languages.english)) return Languages.english;
+    const result = localStorage.getItem('lang') as Languages || Languages.english;
     return result;
   }
 }

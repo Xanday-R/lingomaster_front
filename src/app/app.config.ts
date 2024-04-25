@@ -7,6 +7,7 @@ import {provideAngularSvgIcon} from "angular-svg-icon";
 import {headersOptions} from "./core";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {confirmDialogOptions} from "@core/providers/confirmDialog.provider";
 
 function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   return new TranslateHttpLoader(http, './assets/locale/', '.json');
@@ -14,7 +15,7 @@ function HttpLoaderFactory(http: HttpClient): TranslateLoader {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes), provideAnimationsAsync(), headersOptions, provideHttpClient(), provideAngularSvgIcon(),
+    provideRouter(routes), provideAnimationsAsync(), headersOptions, confirmDialogOptions, provideHttpClient(), provideAngularSvgIcon(),
     importProvidersFrom(
       TranslateModule.forRoot({
         loader: {

@@ -16,8 +16,9 @@ import {GenerateTextDialogComponent} from "./components/generate-text-dialog/gen
 import {ShowTextDialogComponent} from "./components/show-text-dialog/show-text-dialog.component";
 import {PracticeRequestingService} from "../core/services/practice-requesting.service";
 import {Router, RouterLink} from "@angular/router";
-import {GlobalService, IText, IWord, LanguagesList, ResponseFromServer, upperFirstChar} from "../../core";
+import {AuthService, IText, IWord, LanguagesList, ResponseFromServer, upperFirstChar} from "../../core";
 import {TranslateModule} from "@ngx-translate/core";
+import {InformService} from "@core/services/inform-service.service";
 
 
 @Component({
@@ -42,31 +43,31 @@ export class ProfileMainPageComponent {
   readonly takingPractice:Observable<boolean> = this.practiceService.text$.pipe(map((e:ResponseFromServer) => !!e.text));
 
   private deleteWordSubscription = this.learningService.deleteWord$.subscribe((result) => {
-    this.globalService.askInform(result, 'INFORM.WORD_DELETED');
     this.learningService.askWords$.next(null);
+    this.informService.askInform(result, 'INFORM.WORD_DELETED');
   });
   private deleteTextSubscription = this.learningService.deleteText$.subscribe((result) => {
-    this.globalService.askInform(result, 'INFORM.TEXT_DELETED');
     this.learningService.askTexts$.next(null);
+    this.informService.askInform(result, 'INFORM.TEXT_DELETED');
   });
   private changeWordSubscription = this.learningService.changeWord$.subscribe((result) => {
-    this.globalService.askInform(result, 'INFORM.WORD_CHANGED');
     this.learningService.askWords$.next(null);
+    this.informService.askInform(result, 'INFORM.WORD_CHANGED');
   });
   private createWordSubscription = this.learningService.createWord$.subscribe((result) => {
-    this.globalService.askInform(result, 'INFORM.WORD_ADDED');
     this.learningService.askWords$.next(null);
+    this.informService.askInform(result, 'INFORM.WORD_ADDED');
   })
   private generateTextSubscription = this.learningService.generateText$.subscribe((result) => {
-    this.globalService.askInform(result, 'INFORM.TEXT_GENERATED');
     this.learningService.askTexts$.next(null);
+    this.informService.askInform(result, 'INFORM.TEXT_GENERATED');
   })
   private startPracticeSubscription = this.practiceService.startPractice$.subscribe((result) => {
     this.practiceService.askText$.next(null);
-    this.globalService.askInform(result, 'INFORM.PRACTICE_STARTED');
+    this.informService.askInform(result, 'INFORM.PRACTICE_STARTED');
   })
 
-  constructor(private globalService: GlobalService, private learningService: LearningService, private practiceService: PracticeRequestingService, private dialog: MatDialog, private router: Router) {}
+  constructor(private globalService: AuthService, private learningService: LearningService, private practiceService: PracticeRequestingService, private dialog: MatDialog, private router: Router, private informService: InformService) {}
 
   async changeWordDialog(word: IWord) {
     const dialogRef = this.dialog.open(WordDialogComponent, {

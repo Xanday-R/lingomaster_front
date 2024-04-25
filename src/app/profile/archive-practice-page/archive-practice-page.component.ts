@@ -6,7 +6,7 @@ import {TranslateModule} from "@ngx-translate/core";
 @Component({
   selector: 'app-archive-practice-page',
   standalone: true,
-  providers: [ArchivePracticeService],
+  providers: [],
   imports: [
     AsyncPipe,
     NgIf,
@@ -21,5 +21,9 @@ export class ArchivePracticePageComponent {
   essay$ = this.archivePracticeService.essay$
   aiCorrectionEssay$ = this.archivePracticeService.aiCorrectionEssay$;
   constructor(private archivePracticeService: ArchivePracticeService) {
+  }
+
+  ngOnDestroy() {
+    this.archivePracticeService.destroy();
   }
 }

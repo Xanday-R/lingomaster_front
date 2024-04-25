@@ -33,7 +33,7 @@
     <mat-label>{{ 'SELECT.FORMAT' | translate}}</mat-label>
     <mat-select [formControl]="formatFormControl">
       @for (i of FormatsList; track i) {
-        <mat-option [value]="i">{{i}}</mat-option>
+        <mat-option [value]="i">{{('FORMATS_TEXTS.'+i) | translate}}</mat-option>
       }
     </mat-select>
     @if (formatFormControl.hasError('required')) {

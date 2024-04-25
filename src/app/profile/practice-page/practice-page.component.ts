@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {RouterOutlet, Routes} from "@angular/router";
 import {PracticeRequestingService} from "../core/services/practice-requesting.service";
 import {firstValueFrom, map, merge, mergeMap, switchMap, tap} from "rxjs";
@@ -6,7 +6,7 @@ import {PracticeProcessingService} from "./core/services/practice-processing.ser
 import {
   PlaceAnswerInsertingComponent
 } from "./shared/components/place-answer-inserting/place-answer-inserting.component";
-import {GlobalService} from "../../core";
+import {AuthService} from "../../core";
 import {AsyncPipe, NgIf} from "@angular/common";
 import {MatButton} from "@angular/material/button";
 import {MatFormField, MatLabel} from "@angular/material/form-field";
@@ -15,6 +15,8 @@ import {MatInput} from "@angular/material/input";
 import {PlaceAnswerWritingComponent} from "./shared/components/place-answer-writing/place-answer-writing.component";
 import {TranslateModule, TranslateService} from "@ngx-translate/core";
 import {TranslationTextDirective} from "./shared/directives/translation-text.directive";
+import {CONFIRMDIALOG_TOKEN} from "@core/providers/confirmDialog.provider";
+import {InformService} from "@core/services/inform-service.service";
 
 @Component({
   selector: 'app-practice-page',
@@ -38,6 +40,7 @@ import {TranslationTextDirective} from "./shared/directives/translation-text.dir
   styleUrl: './practice-page.component.scss'
 })
 export class PracticePageComponent {
+  private confirm = inject(CONFIRMDIALOG_TOKEN)
   readonly innerHtml = this.practiceProcessingService.text$;
   readonly isCheckedAnswers =  this.practiceProcessingService.isCheckedAnswers$!;
   readonly model$ = this.practiceProcessingService.model$.pipe(mergeMap((e) => this.translate.get(e)));
@@ -59,15 +62,18 @@ export class PracticePageComponent {
   private finishPracticeSubscription = this.practiceRequestingService.finishPractice$.subscribe((result) => {
     if(result.statusCode == 200)
         this.practiceRequestingService.askText$.next(null);
-    this.globalService.askInform(result, 'INFORM.FINISH_PRACTICE', '/profile');
+    this.informService.askInform(result, 'INFORM.FINISH_PRACTICE', '/profile');
   });
   private aiEssayCorrectionSubscription = this.practiceRequestingService.aiEssayCorrection.subscribe((result) => {
     if(result.statusCode == 200)
         this.practiceRequestingService.askText$.next(null);
-    this.globalService.askInform(result, 'INFORM.ESSAY_CHECKED', '/profile/practice/archive/'+result.id_text);
+    setTimeout(() => {
+      this.informService.askInform(result, 'INFORM.ESSAY_CHECKED', '/profile/practice/archive/'+result.id_text);
+    }, 300)
+
   })
 
-  constructor(private practiceRequestingService: PracticeRequestingService, private practiceProcessingService: PracticeProcessingService, protected globalService: GlobalService , private translate: TranslateService) {
+  constructor(private practiceRequestingService: PracticeRequestingService, private practiceProcessingService: PracticeProcessingService, protected globalService: AuthService , private translate: TranslateService, private informService: InformService) {
   }
 
   checkAnswers() {
@@ -75,7 +81,7 @@ export class PracticePageComponent {
   }
 
   async finishPractice() {
-    const result = await this.globalService.openConfirmDialog('CONFIRM.FINISH_PRACTICE');
+    const result = await this.confirm('CONFIRM.FINISH_PRACTICE');
     if(result) this.practiceRequestingService.askFinishPractice.next(null);
   }
 

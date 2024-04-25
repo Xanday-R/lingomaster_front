@@ -7,8 +7,10 @@ import {LogInService} from "./core/services/log-in.service";
 import {HttpClientModule} from "@angular/common/http";
 import {Router} from "@angular/router";
 import {AComponent} from "../../shared/components";
-import {GlobalService, upperFirstChar} from "../../core";
+import {AuthService, upperFirstChar} from "../../core";
 import {TranslateModule} from "@ngx-translate/core";
+import {CookieService} from "@core/services/cookie-service.service";
+import {InformService} from "@core/services/inform-service.service";
 
 @Component({
   selector: 'app-log-in',
@@ -22,17 +24,21 @@ import {TranslateModule} from "@ngx-translate/core";
   styleUrl: './log-in.component.scss'
 })
 export class LogInComponent {
+
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
   passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
 
   private logInServiceІSubscription = this.logInService.logIn$.subscribe((result) => {
-    this.globalService.askAuth.next(null);
+    if(result.statusCode == 200) {
+      this.cookieService.setCookie(result.token!);
+      this.globalService.askAuth.next(null)
+    }
     setTimeout(() => {
-      this.globalService.askInform(result, 'INFORM.LOGGED_IN', '/profile')
+      this.informService.askInform(result, 'INFORM.LOGGED_IN', '/profile')
     }, 300)
 
   });
-  constructor(private logInService: LogInService, private globalService: GlobalService, private router: Router) {}
+  constructor(private logInService: LogInService, private globalService: AuthService, private router: Router, private cookieService: CookieService, private informService: InformService) {}
   logIn() {
     this.logInService.askLogIn$.next({email: this.emailFormControl.value!, password: this.passwordFormControl.value!})
   }

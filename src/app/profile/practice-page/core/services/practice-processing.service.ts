@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {PracticeRequestingService} from "../../../core/services/practice-requesting.service";
 import {filter, map, mergeMap, Observable, of, shareReplay, Subject} from "rxjs";
-import {GlobalService, ResponseFromServer} from "../../../../core";
+import {AuthService, ResponseFromServer} from "../../../../core";
 import {ModelsPractice} from "../../../../core/enums/models-practice.enum";
 import {Router} from "@angular/router";
 import {getText} from "@core/utils/getText";
@@ -31,6 +31,6 @@ export class PracticeProcessingService {
   readonly model$ = this.request.pipe(map(e => e.model!));
   readonly languageText$ = this.request.pipe(map(e => e.languageText!));
 
-  constructor(private practiceRequesting: PracticeRequestingService, private globalService: GlobalService, private router: Router) {
+  constructor(private practiceRequesting: PracticeRequestingService, private globalService: AuthService, private router: Router) {
   }
 }
