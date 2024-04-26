@@ -7,6 +7,7 @@ import {MatInput} from "@angular/material/input";
 import {LanguagesList, ModelPracticeList} from "../../../../core";
 import {MatOption} from "@angular/material/autocomplete";
 import {MatSelect} from "@angular/material/select";
+import {TranslateModule} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-choose-model-practice-dialog',
@@ -24,7 +25,8 @@ import {MatSelect} from "@angular/material/select";
     MatInput,
     MatLabel,
     MatOption,
-    MatSelect
+    MatSelect,
+    TranslateModule
   ],
   templateUrl: './choose-model-practice-dialog.component.html',
   styleUrl: '../dialog.scss'

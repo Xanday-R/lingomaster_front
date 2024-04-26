@@ -41,6 +41,7 @@
     "WORDS": "Select words",
     "FORMAT": "Select format",
     "LEVEL": "Select level",
+    "MODEL": "Select model of practice",
     "UA_AS_LAN_INTERFACE": "Select Ukrainian as language's interface",
     "EN_AS_LAN_INTERFACE": "Select English as language's interface"
   },
@@ -69,7 +70,10 @@
     "SEND_ESSAY": "Send the essay",
     "FINISH_PRACTICE": "Finish the practice",
     "TO_PRACTICE": "Link to your practice",
-    "DELETE_WORD": "Delete the word"
+    "DELETE_WORD": "Delete the word",
+    "ADD_WORD": "Add word",
+    "FLASHCARDS": "Run flashcards",
+    "GEN_TEXT": "Generate text"
   },
   "INFORM": {
     "SIGNED_UP": "You have just singed up successfully!",

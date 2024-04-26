@@ -20,7 +20,6 @@ import {AuthService, IText, IWord, LanguagesList, ResponseFromServer, upperFirst
 import {TranslateModule} from "@ngx-translate/core";
 import {InformService} from "@core/services/inform-service.service";
 
-
 @Component({
   selector: 'app-profile-main-page',
   standalone: true,

@@ -2,11 +2,11 @@
   <mat-tab-group dynamicHeight>
     <mat-tab [label]="'PROFILE.WORDS' | translate">
       <div class="words_texts">
-        <button mat-fab color="primary" (click)="createWordDialog()">
-          <svg-icon src="../../../assets/svg/add.svg" [stretch]="true"></svg-icon>
+        <button mat-flat-button color="warn" (click)="createWordDialog()">
+          {{'BUTTON.ADD_WORD' | translate}}
         </button>
-        <button mat-fab color="primary" (click)="startFlashcards()">
-          <svg-icon src="../../../assets/svg/start.svg" [stretch]="true"></svg-icon>
+        <button mat-flat-button color="warn" (click)="startFlashcards()">
+          {{'BUTTON.FLASHCARDS' | translate}}
         </button>
         @for( i of words | async; track i) {
           <button mat-flat-button color="primary" (click)="changeWordDialog(i)">{{i.word}}</button>
@@ -15,11 +15,11 @@
     </mat-tab>
     <mat-tab [label]="'PROFILE.TEXTS' | translate">
       <div class="words_texts">
-        <button mat-fab color="primary" (click)="generateTextDialog()">
-          <svg-icon src="../../../assets/svg/add.svg" [stretch]="true"></svg-icon>
+        <button mat-flat-button color="warn" (click)="generateTextDialog()">
+          {{'BUTTON.GEN_TEXT' | translate}}
         </button>
         @if(takingPractice | async) {
-          <button mat-fab color="primary" [routerLink]="['/profile/practice']">
+          <button mat-flat-button color="warn" [routerLink]="['/profile/practice']">
             {{ 'BUTTON.TO_PRACTICE' | translate}}
           </button>
         }

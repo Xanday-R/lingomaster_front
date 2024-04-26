@@ -6,12 +6,26 @@ nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   padding: 0px 32px;
   div {
     &.logotype {
       img {
         padding: 4px;
         border-radius: 50%;
+      }
+      @media screen and (max-width: 100vh) {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+    &.account-part {
+      @media screen and (min-width: 100vh) {
+        display: flex;
+        align-items: center;
       }
     }
   }
@@ -21,8 +35,23 @@ nav {
     flex-direction: column;
     div {
       display: flex;
+      align-items: flex-end;
       flex-direction: column;
-      align-items: center;
+      width: 100%;
+    }
+  }
+
+  .dropdown {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    mat-icon {
+      width: 36px;
+      height: 36px;
+      font-size: 36px;
+    }
+    @media screen and (min-width: 100vh) {
+      display: none;
     }
   }
 

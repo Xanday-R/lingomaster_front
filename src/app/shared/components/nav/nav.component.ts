@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {AsyncPipe, NgOptimizedImage} from "@angular/common";
+import {AsyncPipe, NgIf, NgOptimizedImage} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {AComponent} from "../a/a.component";
 import {AuthService} from "../../../core";
@@ -12,6 +12,9 @@ import {
 import {ButtonAComponent} from "../button-a/button-a.component";
 import {CookieService} from "@core/services/cookie-service.service";
 import {CONFIRMDIALOG_TOKEN} from "@core/providers/confirmDialog.provider";
+import {MatIcon} from "@angular/material/icon";
+import {ShowHideAnimation} from "../../animations/show-hide.animation";
+import {RotateAnimation} from "../../animations/rotate.animation";
 
 @Component({
   selector: 'app-nav',
@@ -25,13 +28,17 @@ import {CONFIRMDIALOG_TOKEN} from "@core/providers/confirmDialog.provider";
     TranslateModule,
     MatBottomSheetModule,
     ButtonAComponent,
+    MatIcon,
+    NgIf,
   ],
+  animations: [ShowHideAnimation, RotateAnimation],
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.scss'
 })
 export class NavComponent {
   public isAuth$ = this.globalService.isAuth$;
   private confirm = inject(CONFIRMDIALOG_TOKEN);
+  showAccountPart = false;
   constructor(protected globalService: AuthService, private _bottomSheet: MatBottomSheet, private router: Router, private cookieService: CookieService) {
   }
 
@@ -60,4 +67,6 @@ export class NavComponent {
   ngOnDestroy() {
     // this.signOutSubscription.unsubscribe();
   }
+
+  protected readonly window = window;
 }
