@@ -17,6 +17,8 @@ export class isTakingPracticeGuard implements CanActivate {
     constructor(private practiceRequestingService: PracticeRequestingService, private router: Router) {
     }
     canActivate(): Observable<GuardResult> {
+      if(!this.practiceRequestingService.isSubscribeOnTextRequesting())
+        this.practiceRequestingService.subscribeOnTextRequesting();
       return this.practiceRequestingService.text$.pipe(map( (result) => {
         if (!result.text) {
           this.router.navigate(['/profile']);

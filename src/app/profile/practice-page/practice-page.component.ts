@@ -45,12 +45,12 @@ export class PracticePageComponent {
   readonly isCheckedAnswers =  this.practiceProcessingService.isCheckedAnswers$!;
   readonly model$ = this.practiceProcessingService.model$.pipe(mergeMap((e) => this.translate.get(e)));
   essayFormControl = new FormControl('');
+  private setUserInputSubscription = this.practiceRequestingService.setUserInput$.subscribe((result) => {})
 
   private checkAnswersSubscription = this.practiceRequestingService.checkAnswers$.subscribe((result) => {
     this.practiceRequestingService.askText$.next(null);
   });
   private isCheckedAnswersSubscription = this.isCheckedAnswers!.subscribe((result) => {})
-  private setUserInputSubscription = this.practiceRequestingService.setUserInput$.subscribe((result) => {})
   private markUserInputLikeAnotherAnswerSubscription = this.practiceRequestingService.markUserInputLikeAnotherAnswer$.subscribe((result) => {});
   private essayFormControlSubscription = this.practiceProcessingService.essay$.subscribe((result) => {
     this.essayFormControl.setValue(result, {emitEvent: false});
@@ -93,11 +93,11 @@ export class PracticePageComponent {
     this.essaySubscription.unsubscribe();
     this.checkAnswersSubscription.unsubscribe();
     this.isCheckedAnswersSubscription.unsubscribe();
-    this.setUserInputSubscription.unsubscribe();
     this.markUserInputLikeAnotherAnswerSubscription.unsubscribe();
     this.saveEssaySubscription.unsubscribe();
     this.essayFormControlSubscription.unsubscribe();
     this.finishPracticeSubscription.unsubscribe();
     this.aiEssayCorrectionSubscription.unsubscribe();
+    this.setUserInputSubscription.unsubscribe();
   }
 }

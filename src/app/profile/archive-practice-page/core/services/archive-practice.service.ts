@@ -1,5 +1,5 @@
 import {inject, Injectable} from '@angular/core';
-import {BehaviorSubject, map, mergeMap, ReplaySubject, Subject, tap} from "rxjs";
+import {BehaviorSubject, map, mergeMap, ReplaySubject, Subject, Subscription, tap} from "rxjs";
 import {AuthService, HEADER_TOKEN, ResponseFromServer} from "../../../../core";
 import {Router} from "@angular/router";
 import {ModelsPractice} from "../../../../core/enums/models-practice.enum";
@@ -20,12 +20,20 @@ export class ArchivePracticeService {
   readonly essay$ = this.archivePractice$.pipe(map((e) => e.essay!));
   readonly aiCorrectionEssay$ = this.archivePractice$.pipe(map((e) => e.ai_correct_essay!));
 
-  private archivePracticeRequestingSubscription = this.archivePracticeRequesting$.subscribe()
+  private archivePracticeRequestingSubscription:Subscription | undefined;
 
   constructor(private globalService: AuthService, private router: Router, private http: HttpClient) {
   }
 
+  isPracticeRequestingSubscribe() {
+    return !!this.archivePracticeRequestingSubscription;
+  }
+
+  practiceRequestingSubscribe() {
+    this.archivePracticeRequestingSubscription = this.archivePracticeRequesting$.subscribe();
+  }
+
   destroy() {
-    this.archivePracticeRequestingSubscription.unsubscribe();
+    this.archivePracticeRequestingSubscription!.unsubscribe();
   }
 }

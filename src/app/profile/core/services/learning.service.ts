@@ -7,7 +7,7 @@ import {
   interval,
   map, merge, mergeAll, mergeMap, mergeMapTo,
   Observable, of, ReplaySubject,
-  startWith, Subject,
+  startWith, Subject, Subscription,
   switchMap, switchScan, tap, throwError
 } from "rxjs";
 import {Formats, HEADER_TOKEN, IText, IWord, Languages, Levels, ResponseFromServer} from "../../../core";
@@ -49,8 +49,32 @@ export class LearningService {
   readonly deleteWord$ = this.askDeleteWord$.pipe(mergeMap(({id}) => this.http.post<ResponseFromServer>(`${environment.apiUrl}/learning/delete/words/${id}`, {}, this.headers()).pipe(catchError((err) => of(err.error as ResponseFromServer)))));
   readonly deleteText$ = this.askDeleteText$.pipe(mergeMap(({id}) => this.http.post<ResponseFromServer>(`${environment.apiUrl}/learning/delete/texts/${id}`, {}, this.headers()).pipe(catchError((err) => of(err.error as ResponseFromServer)))));
 
-  private wordsRequestingSubscription = this.wordsRequesting$.subscribe();
-  private textsRequestingSubscription = this.textsRequesting$.subscribe();
+  private wordsRequestingSubscription : Subscription | undefined;
+  private textsRequestingSubscription : Subscription | undefined;
+
+  subscribeWordsRequesting() {
+    this.wordsRequestingSubscription = this.wordsRequesting$.subscribe();
+  }
+
+  subscribeTextsRequesting() {
+    this.textsRequestingSubscription = this.textsRequesting$.subscribe();
+  }
+
+  isOnWordsRequestingSubscribe() {
+    return !!this.wordsRequestingSubscription;
+  }
+
+  isOnTextsRequestingSubscribe() {
+    return !!this.textsRequestingSubscription;
+  }
+
+  destroyWordsRequestingSubscribe() {
+    this.wordsRequestingSubscription!.unsubscribe();
+  }
+
+  destroyTextsRequestingSubscribe() {
+    this.textsRequestingSubscription!.unsubscribe();
+  }
 
   constructor(private http: HttpClient) { }
 }

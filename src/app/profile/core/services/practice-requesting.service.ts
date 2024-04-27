@@ -5,7 +5,7 @@ import {
   catchError, debounceTime, filter, interval, merge, mergeMap,
   of, pairwise, ReplaySubject,
   startWith,
-  Subject,
+  Subject, Subscription,
   switchMap, tap
 } from "rxjs";
 import {HEADER_TOKEN, Languages, ResponseFromServer} from "../../../core";
@@ -19,12 +19,11 @@ export class PracticeRequestingService {
 
   readonly askText$ = new BehaviorSubject(null);
   readonly text$ = new ReplaySubject<ResponseFromServer>(1);
-  private textRequesting$ = this.askText$.pipe(mergeMap(() => this.http.get<ResponseFromServer>(`${environment.apiUrl}/learning/practice/getText`, this.headers()))).pipe(
+  readonly  textRequesting$ = this.askText$.pipe(mergeMap(() => this.http.get<ResponseFromServer>(`${environment.apiUrl}/learning/practice/getText`, this.headers()))).pipe(
     tap(( result) =>{
       this.text$.next(result)
       }
     ));
-  private textRequestingSubscription = this.textRequesting$.subscribe((result) => {});
 
   readonly askStartPractice$:Subject<{id_text:number, model:ModelsPractice}> = new Subject();
   readonly askSetUserInput$:Subject<{id_input:number, userInput: string}> = new Subject();
@@ -44,9 +43,21 @@ export class PracticeRequestingService {
   readonly aiEssayCorrection = this.askAiEssayCorrection.pipe(mergeMap(({essay}) => this.http.post<ResponseFromServer>(`${environment.apiUrl}/learning/practice/essay-correction`, {essay}, this.headers()).pipe(catchError((err) => of(err.error as ResponseFromServer)))));
   readonly translateText$ = this.askTranslateText$.pipe(debounceTime(2000), filter((e) => e.text.length >= 4), mergeMap(( {text, languageText, languageTranslate}) => this.http.post<ResponseFromServer>(`${environment.apiUrl}/learning/ai/translate-text`, {text, languageText, languageTranslate}, this.headers()).pipe(catchError((err) => of(err.error as ResponseFromServer)))));
 
-  constructor(private http: HttpClient) {
-    this.setUserInput$.subscribe((result) => {})
-    this.markUserInputLikeAnotherAnswer$.subscribe((result) => {});
-    this.saveEssay$.subscribe((result) => {});
+  private textRequestingSubscription:Subscription |undefined;
+
+  subscribeOnTextRequesting() {
+    this.textRequestingSubscription = this.textRequesting$.subscribe();
   }
+
+  isSubscribeOnTextRequesting() {
+    return !!this.textRequestingSubscription;
+  }
+
+  destroy() {
+    this.textRequestingSubscription!.unsubscribe();
+  }
+  constructor(private http: HttpClient) {
+  }
+
+
 }

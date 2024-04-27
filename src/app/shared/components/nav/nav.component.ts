@@ -54,10 +54,8 @@ export class NavComponent {
   }
 
   async signOut() {
-    console.log(this.confirm);
     const result = await this.confirm('CONFIRM.SIGN_OUT');
     if(result) {
-      // this.globalService.askSignOut$.next(null);
       this.cookieService.clearCookie();
       this.globalService.askAuth.next(null);
       this.router.navigate(['/']);

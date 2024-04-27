@@ -15,6 +15,7 @@ export class isRightOnTheArchivePracticeGuard implements CanActivate {
   constructor(private  archivePracticeService: ArchivePracticeService, private router: Router) {
   }
   canActivate(route:ActivatedRouteSnapshot, state:RouterStateSnapshot): Observable<GuardResult> {
+    this.archivePracticeService.practiceRequestingSubscribe();
     this.archivePracticeService.askArchivePractice$.next({id_practice: Number(route.paramMap.get('id'))});
     return this.archivePracticeService.archivePractice$.pipe(
       map((result) => {
