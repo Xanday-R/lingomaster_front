@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import {MatBottomSheetRef} from "@angular/material/bottom-sheet";
-import {AComponent} from "../../../a/a.component";
-import {MatListItemTitle, MatNavList} from "@angular/material/list";
-import {Languages} from "../../../../../core";
-import {MatLine} from "@angular/material/core";
-import {LanguageSelectionService} from "@core/services/language-selection.service";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {NgIf} from "@angular/common";
-import {ButtonAComponent} from "../../../button-a/button-a.component";
+import {MatBottomSheetRef} from '@angular/material/bottom-sheet';
+import {AComponent} from '../../../a/a.component';
+import {MatListItemTitle, MatNavList} from '@angular/material/list';
+import {Languages} from '../../../../../core';
+import {MatLine} from '@angular/material/core';
+import {LanguageSelectionService} from '@core/services/language-selection.service';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {NgIf} from '@angular/common';
+import {ButtonAComponent} from '../../../button-a/button-a.component';
 
 @Component({
   selector: 'app-select-language-interface',

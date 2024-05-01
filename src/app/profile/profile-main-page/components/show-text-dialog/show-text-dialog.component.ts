@@ -5,19 +5,19 @@ import {
   MatDialogClose,
   MatDialogContent, MatDialogRef,
   MatDialogTitle
-} from "@angular/material/dialog";
-import {MatButton} from "@angular/material/button";
-import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
-import {MatInput} from "@angular/material/input";
-import {ReactiveFormsModule} from "@angular/forms";
-import {MatIconModule} from "@angular/material/icon";
-import {AuthService, IText} from "../../../../core";
+} from '@angular/material/dialog';
+import {MatButton} from '@angular/material/button';
+import {MatError, MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatInput} from '@angular/material/input';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatIconModule} from '@angular/material/icon';
+import {AuthService, IText} from '../../../../core';
 import {
   ChooseModelPracticeDialogComponent
-} from "../choose-model-practice-dialog/choose-model-practice-dialog.component";
-import {firstValueFrom} from "rxjs";
-import {ModelsPractice} from "../../../../core/enums/models-practice.enum";
-import {TranslateModule} from "@ngx-translate/core";
+} from '../choose-model-practice-dialog/choose-model-practice-dialog.component';
+import {firstValueFrom} from 'rxjs';
+import {ModelsPractice} from '../../../../core/enums/models-practice.enum';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-show-text-dialog',
@@ -40,7 +40,7 @@ import {TranslateModule} from "@ngx-translate/core";
   styleUrl: '../dialog.scss'
 })
 export class ShowTextDialogComponent {
-  public innerHtml = this.text.text.replace(/[\[\]{}()]/g, "").replace(/\n/g, '<br>');
+  public innerHtml = this.text.text.replace(/[\[\]{}()]/g, '').replace(/\n/g, '<br>');
 
   constructor(public dialogRef: MatDialogRef<ShowTextDialogComponent>, @Inject(MAT_DIALOG_DATA) public text: IText, protected globalService: AuthService, private dialog: MatDialog) {
 

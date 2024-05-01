@@ -5,12 +5,12 @@ import {
   MatDialogClose,
   MatDialogContent,
   MatDialogTitle
-} from "@angular/material/dialog";
-import {MatButton} from "@angular/material/button";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {MatOption} from "@angular/material/autocomplete";
-import {MatSelect} from "@angular/material/select";
-import {TranslateModule} from "@ngx-translate/core";
+} from '@angular/material/dialog';
+import {MatButton} from '@angular/material/button';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {MatOption} from '@angular/material/autocomplete';
+import {MatSelect} from '@angular/material/select';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-confirm-something-dialog',

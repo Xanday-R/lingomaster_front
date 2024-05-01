@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
   ConfirmSomethingDialogComponent
-} from "../../shared/components/confirm-something-dialog/confirm-something-dialog.component";
-import {firstValueFrom, mergeMap, Subject} from "rxjs";
-import {ResponseFromServer} from "@core/types/response-from-server.type";
-import {upperFirstChar} from "@core/utils/upper-first-char";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {Router} from "@angular/router";
-import {TranslateService} from "@ngx-translate/core";
+} from '../../shared/components/confirm-something-dialog/confirm-something-dialog.component';
+import {firstValueFrom, switchMap, Subject} from 'rxjs';
+import {ResponseFromServer} from '@core/types/response-from-server.type';
+import {upperFirstChar} from '@core/utils/upper-first-char';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Router} from '@angular/router';
+import {TranslateService} from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root'
@@ -33,13 +33,13 @@ export class InformService {
   }
 
   private inform$ = new Subject<string>();
-  private informSubscription = this.inform$.pipe(mergeMap((e) => this.translate.get(e))).subscribe((message) => {
+  private informSubscription = this.inform$.pipe(switchMap((e) => this.translate.get(e))).subscribe((message) => {
     this._snackBar.open(
       message,
       'OK!',
       {
-        horizontalPosition: "right",
-        verticalPosition: "bottom",
+        horizontalPosition: 'right',
+        verticalPosition: 'bottom',
         duration: 3*1000
       }
     )

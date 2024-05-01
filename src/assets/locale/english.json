@@ -48,7 +48,8 @@
   "VALIDATOR": {
     "MUST_BE_8_CHAR_MORE": "The input must be contain 8 and more characters",
     "REQUIRED": "The input is required!",
-    "ENTER_VALID_EMAIL": "Enter a valid email!"
+    "ENTER_VALID_EMAIL": "Enter a valid email!",
+    "MUST_BE_5_ITEMS_MORE": "The input must be contain 5 and more words"
   },
   "AUTH":{
     "FORGOT_PASSWORD": "Forgot password"

@@ -1,16 +1,12 @@
-import {Injectable} from "@angular/core";
-import {ProfileModule} from "../../profile.module";
+import {Injectable} from '@angular/core';
+import {ProfileModule} from '../../profile.module';
 import {
-  ActivatedRouteSnapshot,
-  CanDeactivate,
-  CanLoad, CanMatch, GuardResult, MaybeAsync, Resolve,
-  Route,
+  ActivatedRouteSnapshot, Resolve,
   Router,
   RouterStateSnapshot,
-  UrlSegment
-} from "@angular/router";
-import {LearningService} from "../../core/services/learning.service";
-import {PracticeRequestingService} from "../../core/services/practice-requesting.service";
+} from '@angular/router';
+import {LearningService} from '../../learning.service';
+import {PracticeRequestingService} from '../../practice-requesting.service';
 
 @Injectable({providedIn: ProfileModule})
 export class ProfileResolver implements Resolve<void> {
@@ -21,12 +17,18 @@ export class ProfileResolver implements Resolve<void> {
     state: RouterStateSnapshot
   ): void {
     if(!state.url.includes('/flashcards')) {
-      if(!this.practiceRequestingService.isSubscribeOnTextRequesting())
+      if(!this.practiceRequestingService.isSubscribeOnTextRequesting()) {
         this.practiceRequestingService.subscribeOnTextRequesting();
-      if(!this.learningService.isOnTextsRequestingSubscribe())
+        this.practiceRequestingService.askText$.next(null);
+      }
+      if(!this.learningService.isOnTextsRequestingSubscribe()) {
         this.learningService.subscribeTextsRequesting();
+        this.learningService.askTexts$.next(null);
+      }
     }
-    if(!this.learningService.isOnWordsRequestingSubscribe())
+    if(!this.learningService.isOnWordsRequestingSubscribe()) {
       this.learningService.subscribeWordsRequesting();
+      this.learningService.askWords$.next(null);
+    }
   }
 }

@@ -5,9 +5,11 @@
         <button mat-flat-button color="warn" (click)="createWordDialog()">
           {{'BUTTON.ADD_WORD' | translate}}
         </button>
-        <button mat-flat-button color="warn" (click)="startFlashcards()">
-          {{'BUTTON.FLASHCARDS' | translate}}
-        </button>
+        @if(isFlashcards | async) {
+          <button mat-flat-button color="warn" (click)="startFlashcards()">
+            {{'BUTTON.FLASHCARDS' | translate}}
+          </button>
+        }
         @for( i of words | async; track i) {
           <button mat-flat-button color="primary" (click)="changeWordDialog(i)">{{i.word}}</button>
         }

@@ -1,37 +1,25 @@
-import {Component, ElementRef, Inject, ViewChild} from '@angular/core';
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatInputModule} from "@angular/material/input";
-import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MatButtonModule} from "@angular/material/button";
+import { filter, from, map, mergeMap, Observable, tap, toArray, withLatestFrom } from 'rxjs';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { IWord } from '@core/types/response-from-server.type';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { FormControl, FormsModule, MinLengthValidator, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatButtonModule } from '@angular/material/button';
 import {
   MAT_DIALOG_DATA,
-  MatDialogActions,
-  MatDialogClose,
-  MatDialogContent, MatDialogRef,
-  MatDialogTitle
-} from "@angular/material/dialog";
-import {MatAutocompleteModule, MatAutocompleteSelectedEvent, MatOption} from "@angular/material/autocomplete";
-import {MatSelect} from "@angular/material/select";
-import {MatChipsModule} from "@angular/material/chips";
-import {MatIconModule} from "@angular/material/icon";
-import {
-  BehaviorSubject,
-  concatAll, concatMap, debounce, debounceTime,
-  filter,
-  forkJoin, from,
-  interval,
-  map,
-  mergeMap,
-  Observable,
-  of, startWith, Subject,
-  switchMap, toArray,
-  withLatestFrom,
-  zip
-} from "rxjs";
-import {AsyncPipe} from "@angular/common";
-import {FormatsList, AuthService, IWord, LanguagesList, LevelsList} from "../../../../core";
-import {TranslateModule} from "@ngx-translate/core";
-import {AccountInfoService} from "@core/services/account-info.service";
+  MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle
+} from '@angular/material/dialog';
+import { MatOption, MatSelect } from '@angular/material/select';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
+import { MatIconModule } from '@angular/material/icon';
+import { AsyncPipe, NgIf } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
+import { AuthService } from '@core/services/auth.service';
+import { AccountInfoService } from '@core/services/account-info.service';
+import { LanguagesList, FormatsList, LevelsList } from '@core/utils/lists';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+
 
 @Component({
   selector: 'app-generate-text-dialog',
@@ -52,27 +40,62 @@ import {AccountInfoService} from "@core/services/account-info.service";
     MatAutocompleteModule,
     MatIconModule,
     AsyncPipe,
-    TranslateModule
+    TranslateModule,
+    NgIf
   ],
   templateUrl: './generate-text-dialog.component.html',
   styleUrl: '../dialog.scss'
 })
 export class GenerateTextDialogComponent {
-  protected languagesWithoutUserNativeLanguage$ = this.accountInfoService.nativeLanguage$.pipe(mergeMap(e => from(LanguagesList).pipe(filter(value => value != e), toArray())));
-
   wordsFormControl = new FormControl('');
-  languageFormControl = new FormControl('', [Validators.required]);
-  formatFormControl = new FormControl('', [Validators.required]);
-  levelFormControl = new FormControl('', [Validators.required]);
-  topicFormControl = new FormControl('', [Validators.required]);
-  nameFormControl = new FormControl('', [Validators.required]);
+
+  languageFormControl = new FormControl(
+    '',
+    [Validators.required])
+  ;
+
+  formatFormControl = new FormControl(
+    '',
+    [Validators.required]
+  );
+
+  levelFormControl = new FormControl(
+    '',
+    [Validators.required]
+  );
+
+  topicFormControl = new FormControl(
+    '',
+    [Validators.required]
+  );
+
+  nameFormControl = new FormControl(
+    '',
+    [Validators.required]
+  );
+
+  selectFormControl = new FormControl(
+    [],
+    [Validators.required, Validators.minLength(5)]
+  );
+
+  readonly languagesWithoutUserNativeLanguage$ = this.accountInfoService.nativeLanguage$.pipe(mergeMap(e => from(LanguagesList).pipe(filter(value => value != e), toArray())));
+
   filteredOptions$:Observable<IWord[]> = this.wordsFormControl.valueChanges.pipe(withLatestFrom(this.words), map((e) => {
-      return e[1].filter((word) => !!this.languageFormControl.value && this.languageFormControl.value == word.language_word && !this.selectedWords.includes(word.word) && word.word.indexOf(e[0]!) != -1)
+      return e[1].filter((word) =>  !!this.languageFormControl.value!.trim().toLowerCase() && this.languageFormControl.value!.trim().toLowerCase() === word.language_word!.trim().toLowerCase() && !this.selectedWords.includes(word.word.trim().toLowerCase()) && word.word.toLowerCase().indexOf(e[0]!.trim().toLowerCase()!) != -1)
     }
   ));
+
   selectedWords:string[] = [];
+
   @ViewChild('wordInput') wordInput: ElementRef<HTMLInputElement> | undefined;
-  constructor(public dialogRef: MatDialogRef<GenerateTextDialogComponent>, @Inject(MAT_DIALOG_DATA) public words: Observable<IWord[]>, private globalService: AuthService, private accountInfoService: AccountInfoService) {
+  constructor(public dialogRef: MatDialogRef<GenerateTextDialogComponent>, @Inject(MAT_DIALOG_DATA) public words: Observable<IWord[]>, private authService: AuthService, private accountInfoService: AccountInfoService) {
+    this.languageFormControl.valueChanges.pipe(
+      takeUntilDestroyed(),
+      tap(() => {
+        this.selectedWords = [];
+      })
+    ).subscribe()
   }
 
   remove(word: string) {
@@ -85,7 +108,7 @@ export class GenerateTextDialogComponent {
   }
 
   select(event: MatAutocompleteSelectedEvent) {
-    this.selectedWords.push(event.option.viewValue);
+    this.selectedWords.push(event.option.viewValue.trim().toLowerCase());
     (this.wordInput as ElementRef<HTMLInputElement> ).nativeElement.value = '';
     this.wordsFormControl.setValue('');
   }
@@ -94,7 +117,6 @@ export class GenerateTextDialogComponent {
     this.wordsFormControl.setValue('');
   }
 
-  protected readonly LanguagesList = LanguagesList;
-  protected readonly FormatsList = FormatsList;
-  protected readonly LevelsList = LevelsList;
+  readonly FormatsList = FormatsList;
+  readonly LevelsList = LevelsList;
 }

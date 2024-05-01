@@ -5,6 +5,8 @@ svg-icon {
 button {
   width: 100px;
   height: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .words_texts {

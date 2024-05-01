@@ -1,20 +1,20 @@
 import {Component, inject} from '@angular/core';
-import {AsyncPipe, NgIf, NgOptimizedImage} from "@angular/common";
-import {Router, RouterLink} from "@angular/router";
-import {AComponent} from "../a/a.component";
-import {AuthService} from "../../../core";
-import {environment} from "../../../../environments/environment";
-import {TranslateModule} from "@ngx-translate/core";
-import {MatBottomSheet, MatBottomSheetModule, MatBottomSheetRef} from "@angular/material/bottom-sheet";
+import {AsyncPipe, NgIf, NgOptimizedImage} from '@angular/common';
+import {Router, RouterLink} from '@angular/router';
+import {AComponent} from '../a/a.component';
+import {AuthService} from '../../../core';
+import {environment} from '../../../../environments/environment';
+import {TranslateModule} from '@ngx-translate/core';
+import {MatBottomSheet, MatBottomSheetModule, MatBottomSheetRef} from '@angular/material/bottom-sheet';
 import {
   SelectLanguageInterfaceComponent
-} from "./components/select-language-interface/select-language-interface.component";
-import {ButtonAComponent} from "../button-a/button-a.component";
-import {CookieService} from "@core/services/cookie-service.service";
-import {CONFIRMDIALOG_TOKEN} from "@core/providers/confirmDialog.provider";
-import {MatIcon} from "@angular/material/icon";
-import {ShowHideAnimation} from "../../animations/show-hide.animation";
-import {RotateAnimation} from "../../animations/rotate.animation";
+} from './components/select-language-interface/select-language-interface.component';
+import {ButtonAComponent} from '../button-a/button-a.component';
+import {CookieService} from '@core/services/cookie-service.service';
+import {CONFIRMDIALOG_TOKEN} from '@core/providers/confirmDialog.provider';
+import {MatIcon} from '@angular/material/icon';
+import {ShowHideAnimation} from '../../animations/show-hide.animation';
+import {RotateAnimation} from '../../animations/rotate.animation';
 
 @Component({
   selector: 'app-nav',
@@ -44,11 +44,6 @@ export class NavComponent {
 
   readonly environment = environment;
 
-  // private signOutSubscription = this.globalService.signOut$.subscribe(() => {
-  //   this.globalService.askAuth.next(null);
-  //   this.router.navigate(['/']);
-  // });
-
   changeLanguageInterface() {
     this._bottomSheet.open(SelectLanguageInterfaceComponent);
   }
@@ -62,9 +57,6 @@ export class NavComponent {
     }
   }
 
-  ngOnDestroy() {
-    // this.signOutSubscription.unsubscribe();
-  }
 
   protected readonly window = window;
 }

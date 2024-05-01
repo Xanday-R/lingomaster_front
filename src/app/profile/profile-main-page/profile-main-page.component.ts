@@ -1,24 +1,24 @@
 import { Component } from '@angular/core';
-import {AComponent} from "../../shared/components";
-import {MatTab, MatTabGroup} from "@angular/material/tabs";
-import {concatMap, filter, firstValueFrom, from, map, mergeMap, Observable, switchMap, tap, toArray} from "rxjs";
-import {AsyncPipe, CommonModule} from "@angular/common";
-import {LearningService} from "../core/services/learning.service";
-import {HttpClientModule} from "@angular/common/http";
-import {MatIcon, MatIconModule} from "@angular/material/icon";
-import {MatButtonModule} from "@angular/material/button";
-import {MatDividerModule} from "@angular/material/divider";
-import { SvgIconComponent} from "angular-svg-icon";
-import {WordDialogComponent} from "./components/word-dialog/word-dialog.component";
-import {MatDialog} from "@angular/material/dialog";
-import {CreateWordDialogComponent} from "./components/create-word-dialog/create-word-dialog.component";
-import {GenerateTextDialogComponent} from "./components/generate-text-dialog/generate-text-dialog.component";
-import {ShowTextDialogComponent} from "./components/show-text-dialog/show-text-dialog.component";
-import {PracticeRequestingService} from "../core/services/practice-requesting.service";
-import {Router, RouterLink} from "@angular/router";
-import {AuthService, IText, IWord, LanguagesList, ResponseFromServer, upperFirstChar} from "../../core";
-import {TranslateModule} from "@ngx-translate/core";
-import {InformService} from "@core/services/inform-service.service";
+import {AComponent} from '../../shared/components';
+import {MatTab, MatTabGroup} from '@angular/material/tabs';
+import {concatMap, filter, firstValueFrom, from, map, switchMap, Observable, tap, toArray} from 'rxjs';
+import {AsyncPipe, CommonModule} from '@angular/common';
+import {LearningService} from '../learning.service';
+import {HttpClientModule} from '@angular/common/http';
+import {MatIcon, MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
+import {MatDividerModule} from '@angular/material/divider';
+import { SvgIconComponent} from 'angular-svg-icon';
+import {WordDialogComponent} from './components/word-dialog/word-dialog.component';
+import {MatDialog} from '@angular/material/dialog';
+import {CreateWordDialogComponent} from './components/create-word-dialog/create-word-dialog.component';
+import {GenerateTextDialogComponent} from './components/generate-text-dialog/generate-text-dialog.component';
+import {ShowTextDialogComponent} from './components/show-text-dialog/show-text-dialog.component';
+import {PracticeRequestingService} from '../practice-requesting.service';
+import {Router, RouterLink} from '@angular/router';
+import {AuthService, IText, IWord, LanguagesList, ResponseFromServer, upperFirstChar} from '../../core';
+import {TranslateModule} from '@ngx-translate/core';
+import {InformService} from '@core/services/inform-service.service';
 
 @Component({
   selector: 'app-profile-main-page',
@@ -40,6 +40,7 @@ export class ProfileMainPageComponent {
   readonly words: Observable<IWord[]> = this.learningService.words$;
   readonly texts: Observable<IText[]> = this.learningService.texts$;
   readonly takingPractice:Observable<boolean> = this.practiceService.text$.pipe(map((e:ResponseFromServer) => !!e.text));
+  readonly isFlashcards = this.words.pipe(map((words) => !!words.length));
 
   private deleteWordSubscription = this.learningService.deleteWord$.subscribe((result) => {
     this.learningService.askWords$.next(null);

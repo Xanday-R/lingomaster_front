@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {ArchivePracticeService} from "./core/services/archive-practice.service";
-import {AsyncPipe, NgIf} from "@angular/common";
-import {TranslateModule} from "@ngx-translate/core";
+import {ArchivePracticeService} from './archive-practice.service';
+import {AsyncPipe, NgIf} from '@angular/common';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-archive-practice-page',

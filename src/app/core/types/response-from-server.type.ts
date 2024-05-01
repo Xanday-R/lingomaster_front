@@ -1,5 +1,5 @@
-import {Languages} from "../enums/languages.enum";
-import {ModelsPractice} from "../enums/models-practice.enum";
+import {Languages} from '../enums/languages.enum';
+import {ModelsPractice} from '../enums/models-practice.enum';
 
 export interface ResponseFromServer {
   statusCode: number,
@@ -19,8 +19,8 @@ export interface ResponseFromServer {
   ai_correct_essay?: string,
   checkedAnswers?: boolean,
   finished?: boolean,
-  id_text: boolean,
-  languageText: Languages,
+  id_text?: boolean,
+  languageText?: Languages,
 }
 
 export interface IWord {

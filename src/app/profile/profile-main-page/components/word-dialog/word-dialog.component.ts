@@ -5,14 +5,14 @@ import {
   MatDialogContent,
   MatDialogRef,
   MatDialogTitle
-} from "@angular/material/dialog";
-import {MatFormFieldModule} from "@angular/material/form-field";
-import {MatButtonModule} from "@angular/material/button";
-import {MatInputModule} from "@angular/material/input";
-import {FormControl, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
-import {MatIcon} from "@angular/material/icon";
-import {IWord} from "../../../../core";
-import {TranslateModule} from "@ngx-translate/core";
+} from '@angular/material/dialog';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatButtonModule} from '@angular/material/button';
+import {MatInputModule} from '@angular/material/input';
+import {FormControl, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
+import {MatIcon} from '@angular/material/icon';
+import {IWord} from '../../../../core';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-word-dialog',

@@ -1,12 +1,12 @@
 import {booleanAttribute, Component, Input} from '@angular/core';
-import {PracticeRequestingService} from "../../../../core/services/practice-requesting.service";
-import {PracticeProcessingService} from "../../../core/services/practice-processing.service";
-import {AsyncPipe, NgIf} from "@angular/common";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatFormField} from "@angular/material/form-field";
-import {MatOption, MatSelect} from "@angular/material/select";
-import {MatCheckbox} from "@angular/material/checkbox";
-import {TranslateModule} from "@ngx-translate/core";
+import {PracticeRequestingService} from '../../../../practice-requesting.service';
+import {PracticeProcessingService} from '../../../core/services/practice-processing.service';
+import {AsyncPipe, NgIf} from '@angular/common';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatFormField} from '@angular/material/form-field';
+import {MatOption, MatSelect} from '@angular/material/select';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-place-answer-writing',

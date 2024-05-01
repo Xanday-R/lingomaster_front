@@ -1,11 +1,11 @@
-import {InjectionToken, Provider} from "@angular/core";
-import {HttpHeaders} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
-import {MatDialog} from "@angular/material/dialog";
+import {InjectionToken, Provider} from '@angular/core';
+import {HttpHeaders} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {MatDialog} from '@angular/material/dialog';
 import {
   ConfirmSomethingDialogComponent
-} from "../../shared/components/confirm-something-dialog/confirm-something-dialog.component";
-import {firstValueFrom} from "rxjs";
+} from '../../shared/components/confirm-something-dialog/confirm-something-dialog.component';
+import {firstValueFrom} from 'rxjs';
 
 export const CONFIRMDIALOG_TOKEN = new InjectionToken<(question: string) => Promise<boolean>>('CONFIRM_DIALOG_TOKEN');
 

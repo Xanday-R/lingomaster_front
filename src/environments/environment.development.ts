@@ -1,7 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api',
-  language: ['english', 'ukrainian'],
+  apiUrl: 'http://localhost:3000',
   defaultLanguage: 'english',
-  origin: "http://localhost:3000"
 };

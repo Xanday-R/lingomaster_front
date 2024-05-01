@@ -1,16 +1,15 @@
 import {Injectable} from '@angular/core';
-import {PracticeRequestingService} from "../../../core/services/practice-requesting.service";
-import {filter, map, mergeMap, Observable, of, shareReplay, Subject} from "rxjs";
-import {AuthService, ResponseFromServer} from "../../../../core";
-import {ModelsPractice} from "../../../../core/enums/models-practice.enum";
-import {Router} from "@angular/router";
-import {getText} from "@core/utils/getText";
+import {PracticeRequestingService} from '../../../practice-requesting.service';
+import {AuthService} from '../../../../core';
+import {Router} from '@angular/router';
+import {getText} from '@core/utils/getText';
+import { map, switchMap } from 'rxjs';
 
 @Injectable()
 export class PracticeProcessingService {
 
   private request = this.practiceRequesting.text$.pipe(
-    mergeMap(async(value) => {
+    switchMap(async(value) => {
       if(value.statusCode == 401) {
         this.globalService.askAuth.next(null);
         await this.router.navigate(['/auth/log-in']);

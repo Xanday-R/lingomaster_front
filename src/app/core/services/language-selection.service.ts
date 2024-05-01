@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Languages} from "../enums/languages.enum";
-import {TranslateService} from "@ngx-translate/core";
-import {environment} from "../../../environments/environment";
+import {Languages} from '../enums/languages.enum';
+import {TranslateService} from '@ngx-translate/core';
+import {environment} from '../../../environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class LanguageSelectionService {

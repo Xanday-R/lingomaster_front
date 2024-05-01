@@ -1,10 +1,10 @@
-import {ComponentFactoryResolver, Directive, HostBinding, HostListener, ViewContainerRef} from '@angular/core';
-import {PracticeRequestingService} from "../../../core/services/practice-requesting.service";
-import {AuthService} from "@core/services/auth.service";
-import {Languages} from "@core/enums/languages.enum";
-import {PracticeProcessingService} from "../../core/services/practice-processing.service";
-import {PrintTranslationComponent} from "../components/print-translation/print-translation.component";
-import {AccountInfoService} from "@core/services/account-info.service";
+import { PracticeRequestingService } from '../../../practice-requesting.service';
+import { ComponentFactoryResolver, Directive, HostListener, ViewContainerRef } from '@angular/core';
+import { Languages } from '@core/enums/languages.enum';
+import { PrintTranslationComponent } from '../components/print-translation/print-translation.component';
+import { PracticeProcessingService } from '../../core/services/practice-processing.service';
+import { AccountInfoService } from '@core/services/account-info.service';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
   selector: '[appTranslationText]',
@@ -19,46 +19,34 @@ export class TranslationTextDirective {
   private y = 0;
   constructor(
     private viewContainerRef: ViewContainerRef,
-    private globalService: AuthService,
     private practiceRequesting : PracticeRequestingService,
     private practiceProcessing: PracticeProcessingService,
     private componentFactoryResolver: ComponentFactoryResolver,
     private accountInfoService: AccountInfoService
   ) { }
 
-  private nativeLanguageSubscription = this.accountInfoService.nativeLanguage$.subscribe((result) => {
+  private nativeLanguageSubscription = this.accountInfoService.nativeLanguage$.pipe(takeUntilDestroyed()).subscribe((result) => {
     this.nativeLanguage = result as Languages;
   })
-  private languageTextSubscription = this.practiceProcessing.languageText$.subscribe((result) => {
+
+  private languageTextSubscription = this.practiceProcessing.languageText$.pipe(takeUntilDestroyed()).subscribe((result) => {
     this.languageText = result;
   })
-  private translateTextSubscription = this.practiceRequesting.translateText$.subscribe((result) => {
-    const componentRef = this.viewContainerRef.createComponent(this.componentFactory);
-    componentRef.instance.translatedText = result.translatedText;
-    componentRef.instance.x = this.x;
-    componentRef.instance.y = this.y;
 
+  private translateTextSubscription = this.practiceRequesting.translateText$.pipe(takeUntilDestroyed()).subscribe((result) => {
+    if(result.statusCode === 200) {
+      const componentRef = this.viewContainerRef.createComponent(this.componentFactory);
+      componentRef.instance.translatedText = result.translatedText;
+      componentRef.instance.x = this.x;
+      componentRef.instance.y = this.y;
+    }
   });
 
   @HostListener('document:selectionchange', ['$event']) onSelectionChange(event: Event) {
     this.viewContainerRef.clear();
     const selectedText = window.getSelection()!;
-    //@ts-ignore
-    this.x = selectedText.baseNode.parentNode.getBoundingClientRect().x-selectedText.baseNode.parentNode.getBoundingClientRect().width;
-    //@ts-ignore
-    this.y = selectedText.baseNode.parentNode.getBoundingClientRect().y - selectedText.baseNode.parentNode.getBoundingClientRect().height;
+    this.x = (selectedText as any).baseNode.parentNode.getBoundingClientRect().left;
+    this.y = (selectedText as any).baseNode.parentNode.getBoundingClientRect().top;
     this.practiceRequesting.askTranslateText$.next({text: selectedText.toString().replace(/\n\n/g, ' '), languageTranslate: this.nativeLanguage, languageText: this.languageText})
   }
-
-  @HostListener('mousemove', ['$event']) mouseMove(event: MouseEvent) {
-    // console.log(event);
-
-  }
-
-  ngOnDestroy() {
-    this.translateTextSubscription.unsubscribe();
-    this.nativeLanguageSubscription.unsubscribe();
-    this.languageTextSubscription.unsubscribe();
-  }
-
 }

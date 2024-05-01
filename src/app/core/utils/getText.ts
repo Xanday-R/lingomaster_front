@@ -1,5 +1,5 @@
-import {ModelsPractice} from "../enums/models-practice.enum";
-import {ResponseFromServer} from "../types/response-from-server.type";
+import {ModelsPractice} from '../enums/models-practice.enum';
+import {ResponseFromServer} from '../types/response-from-server.type';
 
 export function getText(model: ModelsPractice, text:string, answers:ResponseFromServer['answers']) {
   const tag = (model == ModelsPractice.insertingWordTranslation || model == ModelsPractice.insertingMissWords) ? 'inserting' :'writing'

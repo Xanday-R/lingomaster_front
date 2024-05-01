@@ -1,22 +1,22 @@
 import {Component, inject} from '@angular/core';
-import {RouterOutlet, Routes} from "@angular/router";
-import {PracticeRequestingService} from "../core/services/practice-requesting.service";
-import {firstValueFrom, map, merge, mergeMap, switchMap, tap} from "rxjs";
-import {PracticeProcessingService} from "./core/services/practice-processing.service";
+import {RouterOutlet, Routes} from '@angular/router';
+import {PracticeRequestingService} from '../practice-requesting.service';
+import {firstValueFrom, map, merge, switchMap, tap} from 'rxjs';
+import {PracticeProcessingService} from './core/services/practice-processing.service';
 import {
   PlaceAnswerInsertingComponent
-} from "./shared/components/place-answer-inserting/place-answer-inserting.component";
-import {AuthService} from "../../core";
-import {AsyncPipe, NgIf} from "@angular/common";
-import {MatButton} from "@angular/material/button";
-import {MatFormField, MatLabel} from "@angular/material/form-field";
-import {FormControl, ReactiveFormsModule} from "@angular/forms";
-import {MatInput} from "@angular/material/input";
-import {PlaceAnswerWritingComponent} from "./shared/components/place-answer-writing/place-answer-writing.component";
-import {TranslateModule, TranslateService} from "@ngx-translate/core";
-import {TranslationTextDirective} from "./shared/directives/translation-text.directive";
-import {CONFIRMDIALOG_TOKEN} from "@core/providers/confirmDialog.provider";
-import {InformService} from "@core/services/inform-service.service";
+} from './shared/components/place-answer-inserting/place-answer-inserting.component';
+import {AuthService} from '../../core';
+import {AsyncPipe, NgIf} from '@angular/common';
+import {MatButton} from '@angular/material/button';
+import {MatFormField, MatLabel} from '@angular/material/form-field';
+import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {MatInput} from '@angular/material/input';
+import {PlaceAnswerWritingComponent} from './shared/components/place-answer-writing/place-answer-writing.component';
+import {TranslateModule, TranslateService} from '@ngx-translate/core';
+import {TranslationTextDirective} from './shared/directives/translation-text.directive';
+import {CONFIRMDIALOG_TOKEN} from '@core/providers/confirmDialog.provider';
+import {InformService} from '@core/services/inform-service.service';
 
 @Component({
   selector: 'app-practice-page',
@@ -43,7 +43,7 @@ export class PracticePageComponent {
   private confirm = inject(CONFIRMDIALOG_TOKEN)
   readonly innerHtml = this.practiceProcessingService.text$;
   readonly isCheckedAnswers =  this.practiceProcessingService.isCheckedAnswers$!;
-  readonly model$ = this.practiceProcessingService.model$.pipe(mergeMap((e) => this.translate.get(e)));
+  readonly model$ = this.practiceProcessingService.model$.pipe(switchMap((e) => this.translate.get(e)));
   essayFormControl = new FormControl('');
   private setUserInputSubscription = this.practiceRequestingService.setUserInput$.subscribe((result) => {})
 

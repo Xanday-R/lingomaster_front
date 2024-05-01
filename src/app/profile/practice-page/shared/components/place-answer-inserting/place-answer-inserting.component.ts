@@ -9,15 +9,15 @@ import {
   Signal,
   WritableSignal
 } from '@angular/core';
-import {MatFormField} from "@angular/material/form-field";
-import {MatOption, MatSelect} from "@angular/material/select";
-import {FormControl, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {debounce, debounceTime, of} from "rxjs";
-import {PracticeRequestingService} from "../../../../core/services/practice-requesting.service";
-import {PracticeProcessingService} from "../../../core/services/practice-processing.service";
-import {AsyncPipe, NgIf} from "@angular/common";
-import {MatCheckbox} from "@angular/material/checkbox";
-import {TranslateModule} from "@ngx-translate/core";
+import {MatFormField} from '@angular/material/form-field';
+import {MatOption, MatSelect} from '@angular/material/select';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {debounce, debounceTime, of} from 'rxjs';
+import {PracticeRequestingService} from '../../../../practice-requesting.service';
+import {PracticeProcessingService} from '../../../core/services/practice-processing.service';
+import {AsyncPipe, NgIf} from '@angular/common';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {TranslateModule} from '@ngx-translate/core';
 @Component({
   selector: 'app-place-answer-inserting',
   standalone: true,

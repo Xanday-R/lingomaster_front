@@ -1,10 +1,10 @@
-import {Injectable} from "@angular/core";
-import {ActivatedRouteSnapshot, CanDeactivate, GuardResult, Router, RouterStateSnapshot} from "@angular/router";
-import {AuthService} from "@core/services/auth.service";
-import {map, Observable} from "rxjs";
-import {LearningService} from "../../core/services/learning.service";
-import {PracticeRequestingService} from "../../core/services/practice-requesting.service";
-import {ProfileModule} from "../../profile.module";
+import {Injectable} from '@angular/core';
+import {ActivatedRouteSnapshot, CanDeactivate, GuardResult, Router, RouterStateSnapshot} from '@angular/router';
+import {AuthService} from '@core/services/auth.service';
+import {map, Observable} from 'rxjs';
+import {LearningService} from '../../learning.service';
+import {PracticeRequestingService} from '../../practice-requesting.service';
+import {ProfileModule} from '../../profile.module';
 
 @Injectable({providedIn: ProfileModule})
 export class CanDeactivateProfileGuard implements CanDeactivate<any> {

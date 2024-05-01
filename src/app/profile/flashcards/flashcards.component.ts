@@ -1,9 +1,9 @@
 import {Component, Input} from '@angular/core';
-import {LearningService} from "../core/services/learning.service";
-import {Observable, Subscription} from "rxjs";
-import {IWord} from "@core/types/response-from-server.type";
-import {AsyncPipe, NgIf} from "@angular/common";
-import {FlashcardsDirective} from "./shared/directives/flashcards.directive";
+import {LearningService} from '../learning.service';
+import {Observable} from 'rxjs';
+import {IWord} from '@core/types/response-from-server.type';
+import {AsyncPipe, NgIf} from '@angular/common';
+import {FlashcardsDirective} from './flashcards.directive';
 
 @Component({
   selector: 'app-flashcards',

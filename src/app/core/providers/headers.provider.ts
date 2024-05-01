@@ -1,7 +1,7 @@
-import {InjectionToken, Provider} from "@angular/core";
-import {HttpHeaders} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
-import {CookieService} from "@core/services/cookie-service.service";
+import {InjectionToken, Provider} from '@angular/core';
+import {HttpHeaders} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {CookieService} from '@core/services/cookie-service.service';
 
 export const HEADER_TOKEN = new InjectionToken<() => { headers: HttpHeaders }>('headers');
 
@@ -11,7 +11,7 @@ export function requestOptionsFactory (cookieService: CookieService) {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Credentials': 'true',
         'Authorization': 'Bearer ' + cookieService.getCookie(),
-        'Access-Control-Allow-Origin': environment.origin
+        'Access-Control-Allow-Origin': environment.apiUrl
 
       }),
       withCredentials: 'include',

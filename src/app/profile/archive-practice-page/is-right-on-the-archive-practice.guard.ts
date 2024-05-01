@@ -5,11 +5,11 @@ import {
   Router,
   RouterStateSnapshot
 } from '@angular/router';
-import {Injectable} from "@angular/core";
-import {AuthService} from "../../../../core";
-import {map, Observable} from "rxjs";
-import {ProfileModule} from "../../../profile.module";
-import {ArchivePracticeService} from "../../core/services/archive-practice.service";
+import {Injectable} from '@angular/core';
+import {AuthService} from '@core/index';
+import {map, Observable} from 'rxjs';
+import {ProfileModule} from '../profile.module';
+import {ArchivePracticeService} from './archive-practice.service';
 @Injectable({providedIn: ProfileModule})
 export class isRightOnTheArchivePracticeGuard implements CanActivate {
   constructor(private  archivePracticeService: ArchivePracticeService, private router: Router) {
