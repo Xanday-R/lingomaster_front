@@ -36,7 +36,7 @@ import {InformService} from '@core/services/inform-service.service';
   styleUrl: './profile-main-page.component.scss'
 })
 export class ProfileMainPageComponent {
-  readonly accountInfo:Observable<ResponseFromServer> = this.globalService.isAuth$;
+  readonly accountInfo:Observable<ResponseFromServer> = this.authService.isAuthRequesting$;
   readonly words: Observable<IWord[]> = this.learningService.words$;
   readonly texts: Observable<IText[]> = this.learningService.texts$;
   readonly takingPractice:Observable<boolean> = this.practiceService.text$.pipe(map((e:ResponseFromServer) => !!e.text));
@@ -67,7 +67,7 @@ export class ProfileMainPageComponent {
     this.informService.askInform(result, 'INFORM.PRACTICE_STARTED');
   })
 
-  constructor(private globalService: AuthService, private learningService: LearningService, private practiceService: PracticeRequestingService, private dialog: MatDialog, private router: Router, private informService: InformService) {}
+  constructor(private authService: AuthService, private learningService: LearningService, private practiceService: PracticeRequestingService, private dialog: MatDialog, private router: Router, private informService: InformService) {}
 
   async changeWordDialog(word: IWord) {
     const dialogRef = this.dialog.open(WordDialogComponent, {

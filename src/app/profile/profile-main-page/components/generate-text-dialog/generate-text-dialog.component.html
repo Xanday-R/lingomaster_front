@@ -77,7 +77,7 @@
         </mat-chip-row>
       }
     </mat-chip-grid>
-    <input placeholder="words..." #wordInput [formControl]="wordsFormControl"
+    <input placeholder="words..." #wordInput (matChipInputTokenEnd)="add($event)" [formControl]="wordsFormControl"
            [matChipInputFor]="chipGrid" [matAutocomplete]="auto" (focus)="showOptions()"/>
     @if (selectFormControl.hasError("required")) {
       <mat-error>{{"VALIDATOR.REQUIRED" | translate}}</mat-error>

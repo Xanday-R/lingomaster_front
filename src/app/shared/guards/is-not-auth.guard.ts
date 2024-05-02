@@ -7,16 +7,19 @@ import { map, Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
 export class isNotAuthGuard implements CanActivateChild {
-  constructor(private  globalService: AuthService, private router: Router) {
+  constructor(private  authService: AuthService, private router: Router) {
   }
  canActivateChild(): Observable<GuardResult> {
-   this.globalService.askAuth.next(null);
-   return this.globalService.isAuthRequesting$.pipe(
+   this.authService.askAuth.next(null);
+   return this.authService.isAuthRequesting$.pipe(
      map((result) => {
        if (result.statusCode == 200) {
          this.router.navigate(['/profile']);
          return false;
-       } else return true;
+       } else {
+         this.authService.isAuth$.next(false);
+         return true;
+       }
      })
    )
   }

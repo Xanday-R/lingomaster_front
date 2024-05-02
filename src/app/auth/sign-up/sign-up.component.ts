@@ -37,7 +37,7 @@ export class SignUpComponent {
     this.informService.askInform(result, 'INFORM.SIGNED_UP', '/profile');
   })
 
-  constructor(private signUpService: SignUpService, private globalService: AuthService, private router: Router, private cookieService: CookieService, private informService: InformService) {}
+  constructor(private signUpService: SignUpService, private authService: AuthService, private router: Router, private cookieService: CookieService, private informService: InformService) {}
 
   async signUp() {
     this.signUpService.askSignUp$.next({email: this.emailFormControl.value!, login: this.loginFormControl.value!, native_language: this.nativeLanguageFormControl.value!, password: this.passwordFormControl.value!});

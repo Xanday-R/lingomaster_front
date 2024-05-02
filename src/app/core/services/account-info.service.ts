@@ -9,6 +9,6 @@ export class AccountInfoService {
 
   constructor(private authService: AuthService) { }
 
-  readonly nativeLanguage$ = this.authService.isAuth$.pipe(map( (e) => e.info!.native_language!));
+  readonly nativeLanguage$ = this.authService.isAuthRequesting$.pipe(map( (e) => e.info!.native_language!));
 
 }

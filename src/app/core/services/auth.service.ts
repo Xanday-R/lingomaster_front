@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { HEADER_TOKEN, ResponseFromServer } from '..';
 import {
-  auditTime, BehaviorSubject, catchError, debounceTime, of, ReplaySubject, share, shareReplay, startWith, Subject,
+  auditTime, BehaviorSubject, bufferTime, catchError, debounceTime, of, ReplaySubject, share, shareReplay, startWith,
+  Subject,
   switchMap, tap,
   throttleTime
 } from 'rxjs';
@@ -14,7 +15,7 @@ export class AuthService {
 
   readonly askAuth = new BehaviorSubject(null);
 
-  readonly isAuth$ = new ReplaySubject<ResponseFromServer>();
+  readonly isAuth$ = new ReplaySubject<boolean>(1);
 
   readonly isAuthRequesting$ = this.askAuth
     .pipe(
@@ -25,9 +26,18 @@ export class AuthService {
           )
       )
     ).pipe(
-      tap((result) => this.isAuth$.next(result)),
+      shareReplay(1, 15 * 1000),
+      tap((result) => {
+        if(result.statusCode === 200) {
+          this.isAuth$.next(true)
+        } else {
+          this.isAuth$.next(false);
+        }
+      }),
     );
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    this.isAuthRequesting$.subscribe();
+  }
 
 }

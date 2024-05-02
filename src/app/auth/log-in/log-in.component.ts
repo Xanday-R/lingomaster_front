@@ -35,7 +35,7 @@ export class LogInComponent {
     this.informService.askInform(result, 'INFORM.LOGGED_IN', '/profile')
 
   });
-  constructor(private logInService: LogInService, private globalService: AuthService, private router: Router, private cookieService: CookieService, private informService: InformService) {}
+  constructor(private logInService: LogInService, private authService: AuthService, private router: Router, private cookieService: CookieService, private informService: InformService) {}
   logIn() {
     this.logInService.askLogIn$.next({email: this.emailFormControl.value!, password: this.passwordFormControl.value!})
   }

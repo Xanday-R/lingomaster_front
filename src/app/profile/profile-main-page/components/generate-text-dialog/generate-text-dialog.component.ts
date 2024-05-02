@@ -1,4 +1,7 @@
-import { filter, from, map, mergeMap, Observable, tap, toArray, withLatestFrom } from 'rxjs';
+import {
+  auditTime, debounceTime, filter, firstValueFrom, from, map, mergeMap, Observable, Subject, tap, throttleTime, toArray,
+  withLatestFrom
+} from 'rxjs';
 import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { IWord } from '@core/types/response-from-server.type';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -10,7 +13,7 @@ import {
   MatDialogActions, MatDialogClose, MatDialogContent, MatDialogRef, MatDialogTitle
 } from '@angular/material/dialog';
 import { MatOption, MatSelect } from '@angular/material/select';
-import { MatChipsModule } from '@angular/material/chips';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { MatIconModule } from '@angular/material/icon';
 import { AsyncPipe, NgIf } from '@angular/common';
@@ -81,12 +84,16 @@ export class GenerateTextDialogComponent {
 
   readonly languagesWithoutUserNativeLanguage$ = this.accountInfoService.nativeLanguage$.pipe(mergeMap(e => from(LanguagesList).pipe(filter(value => value != e), toArray())));
 
-  filteredOptions$:Observable<IWord[]> = this.wordsFormControl.valueChanges.pipe(withLatestFrom(this.words), map((e) => {
+  filteredOptions$:Observable<IWord[]> = this.wordsFormControl.valueChanges.pipe(
+    withLatestFrom(this.words),
+    map((e) => {
       return e[1].filter((word) =>  !!this.languageFormControl.value!.trim().toLowerCase() && this.languageFormControl.value!.trim().toLowerCase() === word.language_word!.trim().toLowerCase() && !this.selectedWords.includes(word.word.trim().toLowerCase()) && word.word.toLowerCase().indexOf(e[0]!.trim().toLowerCase()!) != -1)
     }
   ));
 
   selectedWords:string[] = [];
+
+  selectWordsAdding$ = new Subject<string>();
 
   @ViewChild('wordInput') wordInput: ElementRef<HTMLInputElement> | undefined;
   constructor(public dialogRef: MatDialogRef<GenerateTextDialogComponent>, @Inject(MAT_DIALOG_DATA) public words: Observable<IWord[]>, private authService: AuthService, private accountInfoService: AccountInfoService) {
@@ -96,6 +103,15 @@ export class GenerateTextDialogComponent {
         this.selectedWords = [];
       })
     ).subscribe()
+
+    this.selectWordsAdding$.pipe(
+      takeUntilDestroyed(),
+      debounceTime(200),
+      tap((word) => {
+        if(!this.selectedWords.filter((e) => e.toLowerCase().trim() === word.toLowerCase().trim()).length)
+          this.selectedWords.push(word);
+      })
+    ).subscribe();
   }
 
   remove(word: string) {
@@ -107,8 +123,16 @@ export class GenerateTextDialogComponent {
     this.wordsFormControl.setValue(this.wordsFormControl.value);
   }
 
+  async add(event: MatChipInputEvent) {
+    if (!!event.value) {
+      this.selectWordsAdding$.next(event.value);
+      (this.wordInput as ElementRef<HTMLInputElement> ).nativeElement.value = '';
+      this.wordsFormControl.setValue('');
+    }
+  }
+
   select(event: MatAutocompleteSelectedEvent) {
-    this.selectedWords.push(event.option.viewValue.trim().toLowerCase());
+    this.selectWordsAdding$.next(event.option.value);
     (this.wordInput as ElementRef<HTMLInputElement> ).nativeElement.value = '';
     this.wordsFormControl.setValue('');
   }

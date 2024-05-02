@@ -40,7 +40,7 @@ import {AccountInfoService} from '@core/services/account-info.service';
 })
 export class CreateWordDialogComponent {
 
-  constructor(private globalService: AuthService, private accountInfoService: AccountInfoService) {
+  constructor(private authService: AuthService, private accountInfoService: AccountInfoService) {
   }
   protected languagesWithoutUserNativeLanguage$ = this.accountInfoService.nativeLanguage$.pipe(switchMap(e => from(LanguagesList).pipe(filter(value => value != e), toArray())));
   public Languages:string[] = LanguagesList;

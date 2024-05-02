@@ -36,10 +36,10 @@ import {RotateAnimation} from '../../animations/rotate.animation';
   styleUrl: './nav.component.scss'
 })
 export class NavComponent {
-  public isAuth$ = this.globalService.isAuth$;
+  public isAuthRequesting$ = this.authService.isAuth$;
   private confirm = inject(CONFIRMDIALOG_TOKEN);
   showAccountPart = false;
-  constructor(protected globalService: AuthService, private _bottomSheet: MatBottomSheet, private router: Router, private cookieService: CookieService) {
+  constructor(protected authService: AuthService, private _bottomSheet: MatBottomSheet, private router: Router, private cookieService: CookieService) {
   }
 
   readonly environment = environment;
@@ -52,7 +52,7 @@ export class NavComponent {
     const result = await this.confirm('CONFIRM.SIGN_OUT');
     if(result) {
       this.cookieService.clearCookie();
-      this.globalService.askAuth.next(null);
+      this.authService.isAuth$.next(false);
       this.router.navigate(['/']);
     }
   }

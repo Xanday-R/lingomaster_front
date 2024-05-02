@@ -42,7 +42,7 @@ import {TranslateModule} from '@ngx-translate/core';
 export class ShowTextDialogComponent {
   public innerHtml = this.text.text.replace(/[\[\]{}()]/g, '').replace(/\n/g, '<br>');
 
-  constructor(public dialogRef: MatDialogRef<ShowTextDialogComponent>, @Inject(MAT_DIALOG_DATA) public text: IText, protected globalService: AuthService, private dialog: MatDialog) {
+  constructor(public dialogRef: MatDialogRef<ShowTextDialogComponent>, @Inject(MAT_DIALOG_DATA) public text: IText, protected authService: AuthService, private dialog: MatDialog) {
 
   }
 

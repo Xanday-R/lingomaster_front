@@ -1,13 +1,10 @@
 import { Routes } from '@angular/router';
-import {isAuthGuard} from './shared/guards/is-auth.guard';
 import {isNotAuthGuard} from './shared/guards/is-not-auth.guard';
-import {CanDeactivateProfileGuard} from './profile/shared/guards/can-deactive-profile.guard';
 
 export const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule),
-    canActivateChild: [isAuthGuard]
   },
   {
     path: 'auth',

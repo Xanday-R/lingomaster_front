@@ -11,7 +11,7 @@ export class PracticeProcessingService {
   private request = this.practiceRequesting.text$.pipe(
     switchMap(async(value) => {
       if(value.statusCode == 401) {
-        this.globalService.askAuth.next(null);
+        this.authService.askAuth.next(null);
         await this.router.navigate(['/auth/log-in']);
       }
       return value;
@@ -30,6 +30,6 @@ export class PracticeProcessingService {
   readonly model$ = this.request.pipe(map(e => e.model!));
   readonly languageText$ = this.request.pipe(map(e => e.languageText!));
 
-  constructor(private practiceRequesting: PracticeRequestingService, private globalService: AuthService, private router: Router) {
+  constructor(private practiceRequesting: PracticeRequestingService, private authService: AuthService, private router: Router) {
   }
 }

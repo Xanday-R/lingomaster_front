@@ -22,7 +22,7 @@ export class ArchivePracticeService {
 
   private archivePracticeRequestingSubscription:Subscription | undefined;
 
-  constructor(private globalService: AuthService, private router: Router, private http: HttpClient) {
+  constructor(private authService: AuthService, private router: Router, private http: HttpClient) {
   }
 
   isPracticeRequestingSubscribe() {

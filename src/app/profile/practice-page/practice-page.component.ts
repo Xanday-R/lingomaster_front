@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
-import {RouterOutlet, Routes} from '@angular/router';
+import { RouterOutlet } from '@angular/router';
 import {PracticeRequestingService} from '../practice-requesting.service';
-import {firstValueFrom, map, merge, switchMap, tap} from 'rxjs';
+import { switchMap } from 'rxjs';
 import {PracticeProcessingService} from './core/services/practice-processing.service';
 import {
   PlaceAnswerInsertingComponent
@@ -45,25 +45,33 @@ export class PracticePageComponent {
   readonly isCheckedAnswers =  this.practiceProcessingService.isCheckedAnswers$!;
   readonly model$ = this.practiceProcessingService.model$.pipe(switchMap((e) => this.translate.get(e)));
   essayFormControl = new FormControl('');
+
   private setUserInputSubscription = this.practiceRequestingService.setUserInput$.subscribe((result) => {})
 
   private checkAnswersSubscription = this.practiceRequestingService.checkAnswers$.subscribe((result) => {
     this.practiceRequestingService.askText$.next(null);
   });
+
   private isCheckedAnswersSubscription = this.isCheckedAnswers!.subscribe((result) => {})
+
   private markUserInputLikeAnotherAnswerSubscription = this.practiceRequestingService.markUserInputLikeAnotherAnswer$.subscribe((result) => {});
+
   private essayFormControlSubscription = this.practiceProcessingService.essay$.subscribe((result) => {
     this.essayFormControl.setValue(result, {emitEvent: false});
   })
+
   private saveEssaySubscription = this.practiceRequestingService.saveEssay$.subscribe((result) => {});
+
   private essaySubscription =  this.essayFormControl.valueChanges.subscribe((result) => {
     this.practiceRequestingService.askSaveEssay$.next({essay: result!});
   });
+
   private finishPracticeSubscription = this.practiceRequestingService.finishPractice$.subscribe((result) => {
     if(result.statusCode == 200)
         this.practiceRequestingService.askText$.next(null);
     this.informService.askInform(result, 'INFORM.FINISH_PRACTICE', '/profile');
   });
+
   private aiEssayCorrectionSubscription = this.practiceRequestingService.aiEssayCorrection.subscribe((result) => {
     if(result.statusCode == 200)
         this.practiceRequestingService.askText$.next(null);
@@ -73,7 +81,7 @@ export class PracticePageComponent {
 
   })
 
-  constructor(private practiceRequestingService: PracticeRequestingService, private practiceProcessingService: PracticeProcessingService, protected globalService: AuthService , private translate: TranslateService, private informService: InformService) {
+  constructor(private practiceRequestingService: PracticeRequestingService, private practiceProcessingService: PracticeProcessingService, protected authService: AuthService , private translate: TranslateService, private informService: InformService) {
   }
 
   checkAnswers() {

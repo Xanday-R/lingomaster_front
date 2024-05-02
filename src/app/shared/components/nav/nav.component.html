@@ -4,7 +4,7 @@
     <app-button-a (click)="showAccountPart = !showAccountPart"  class="dropdown"><mat-icon fontIcon="keyboard_arrow_up" [style]="{color: 'white'}" [@Rotate]="showAccountPart ? 'rotate' : 'no'"></mat-icon></app-button-a>
   </div>
   <div class="account-part" [@ShowHide]="showAccountPart || window.innerHeight < window.innerWidth ? 'show' : 'hide'">
-    @if ((isAuth$ | async)?.statusCode == 200 ) {
+    @if ((isAuthRequesting$ | async)) {
       <app-button-a  [routerLink]="['/profile']">{{'COMMON.PROFILE' | translate}}</app-button-a>
       <app-button-a (click)="signOut()">{{'COMMON.SIGN_OUT' | translate}}</app-button-a>
     } @else {
