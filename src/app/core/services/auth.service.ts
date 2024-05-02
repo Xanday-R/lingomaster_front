@@ -26,7 +26,6 @@ export class AuthService {
           )
       )
     ).pipe(
-      shareReplay(1, 15 * 1000),
       tap((result) => {
         if(result.statusCode === 200) {
           this.isAuth$.next(true)
