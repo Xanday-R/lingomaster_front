@@ -38,7 +38,7 @@ export class PracticeRequestingService {
   readonly askAiEssayCorrection : Subject<{essay: string}>  = new Subject();
   readonly askTranslateText$:Subject<{text: string, languageText: Languages, languageTranslate: Languages}> = new Subject();
 
-  readonly startPractice$ =  this.askStartPractice$.pipe(switchMap(( {id_text, model}) => this.http.post<ResponseFromServer>(`${environment.apiUrl}/learning/practice/start`, {id_text, model}, this.headers()).pipe(catchError((err) => {throw new Error(err)}))));
+  readonly startPractice$ =  this.askStartPractice$.pipe(switchMap(( {id_text, model}) => this.http.post<ResponseFromServer>(`${environment.apiUrl}/learning/practice/start`, {id_text, model}, this.headers()).pipe(catchError((err) => {return of(err.error)}))));
   readonly setUserInput$ = this.askSetUserInput$.pipe(switchMap(({id_input, userInput}) => this.http.post<ResponseFromServer>(`${environment.apiUrl}/learning/practice/setUserInput`, {id_input, userInput}, this.headers())));
   readonly checkAnswers$ = this.askCheckAnswers$.pipe(switchMap(() => this.http.post<ResponseFromServer>(`${environment.apiUrl}/learning/practice/confirmCheckAnswers`, {}, this.headers())));
   readonly markUserInputLikeAnotherAnswer$ = this.askMarkUserInputLikeAnotherAnswer$.pipe(switchMap(({id_input, isCorrectAnswer}) => this.http.post<ResponseFromServer>(`${environment.apiUrl}/learning/practice/markUserInputLikeAnotherAnswer`, {id_input, isCorrectAnswer}, this.headers())))

@@ -1,5 +1,5 @@
 import {
-  auditTime, debounceTime, filter, firstValueFrom, from, map, mergeMap, Observable, Subject, tap, throttleTime, toArray,
+  auditTime, debounceTime, filter, firstValueFrom, from, map, merge, mergeMap, Observable, Subject, tap, throttleTime, toArray,
   withLatestFrom
 } from 'rxjs';
 import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
@@ -86,8 +86,12 @@ export class GenerateTextDialogComponent {
 
   filteredOptions$:Observable<IWord[]> = this.wordsFormControl.valueChanges.pipe(
     withLatestFrom(this.words),
-    map((e) => {
-      return e[1].filter((word) =>  !!this.languageFormControl.value!.trim().toLowerCase() && this.languageFormControl.value!.trim().toLowerCase() === word.language_word!.trim().toLowerCase() && !this.selectedWords.includes(word.word.trim().toLowerCase()) && word.word.toLowerCase().indexOf(e[0]!.trim().toLowerCase()!) != -1)
+    map(([currentWord, selectedWords]) => {
+      return selectedWords.filter((word) =>
+        !!this.languageFormControl.value!
+        && this.languageFormControl.value!.trim().toLowerCase() === word.language_word!.trim().toLowerCase()
+        && !this.selectedWords.includes(word.word.trim().toLowerCase())
+        && word.word.toLowerCase().indexOf(currentWord!.trim().toLowerCase()!) != -1)
     }
   ));
 
@@ -109,7 +113,7 @@ export class GenerateTextDialogComponent {
       debounceTime(200),
       tap((word) => {
         if(!this.selectedWords.filter((e) => e.toLowerCase().trim() === word.toLowerCase().trim()).length)
-          this.selectedWords.push(word);
+          this.selectedWords.push(word.trim().toLowerCase());
       })
     ).subscribe();
   }
@@ -126,15 +130,13 @@ export class GenerateTextDialogComponent {
   async add(event: MatChipInputEvent) {
     if (!!event.value) {
       this.selectWordsAdding$.next(event.value);
-      (this.wordInput as ElementRef<HTMLInputElement> ).nativeElement.value = '';
-      this.wordsFormControl.setValue('');
+      this.showOptions();
     }
   }
 
   select(event: MatAutocompleteSelectedEvent) {
     this.selectWordsAdding$.next(event.option.value);
-    (this.wordInput as ElementRef<HTMLInputElement> ).nativeElement.value = '';
-    this.wordsFormControl.setValue('');
+    this.showOptions();
   }
 
   showOptions() {
